@@ -117,7 +117,9 @@ class DBHelper {
         try {
             stmt.close();
             conn.close();
-            rs.close();
+            if (rs != null) {
+                rs.close();
+            }
             System.out.println("Goodbye!");
         } catch (SQLException e) {
             e.printStackTrace();
