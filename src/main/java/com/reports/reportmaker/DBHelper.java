@@ -6,6 +6,8 @@ class DBHelper {
 
     private static Connection conn = null;
     private static Statement stmt = null;
+    private static ResultSet rs = null;
+
 
     /**
      * CREATE DB
@@ -115,6 +117,7 @@ class DBHelper {
         try {
             stmt.close();
             conn.close();
+            rs.close();
             System.out.println("Goodbye!");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,7 +131,6 @@ class DBHelper {
     //LISTS
     static ResultSet showWholeData(String query) {
 
-        ResultSet rs = null;
         try {
             rs = stmt.executeQuery(query);
 
@@ -160,13 +162,12 @@ class DBHelper {
     //CALCULATIONS
     static double calculateData(String query, String columnLabel) {
 
-        ResultSet rs;
+        //ResultSet rs;
         double result = 0;
         try {
             rs = stmt.executeQuery(query);
             rs.next();
             result = rs.getDouble(columnLabel);
-            rs.close();
 
         } catch (SQLException e) {
             e.printStackTrace();

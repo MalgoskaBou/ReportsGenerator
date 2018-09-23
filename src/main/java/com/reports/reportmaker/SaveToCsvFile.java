@@ -67,7 +67,6 @@ class SaveToCsvFile {
                 out.flush();
                 out.close();
                 csvPrinter.close();
-                result.close();
                 System.out.println("Your report has been generated.");
             }
 
