@@ -1,6 +1,7 @@
 package com.reports.reportmaker;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 
 class DBHelper {
 
@@ -84,7 +85,11 @@ class DBHelper {
             String clientID = object.getClientID().replaceAll("\\s", "");
             long requestID = Long.parseLong(object.getRequestID());
             int quantity = Integer.parseInt(object.getQuantity());
+
+            //makes sure that the entry price has 2 decimal places - I use ROUND_HALF_UP!!!
             double price = Double.parseDouble(object.getPrice());
+            price = Math.round(price * 100) / 100D;
+
 
             //checking if these values are within the varchar range
             if (clientID.length() > 6) {
@@ -122,9 +127,9 @@ class DBHelper {
      */
 
     //LISTS
-    static void showWholeData(String query) {
+    static ResultSet showWholeData(String query) {
 
-        ResultSet rs;
+        ResultSet rs = null;
         try {
             rs = stmt.executeQuery(query);
 
@@ -143,17 +148,14 @@ class DBHelper {
                 System.out.print(", requestId: " + requestId + "\t");
                 System.out.print(", name: " + name + "\t");
                 System.out.print(", quantity: " + quantity + "\t");
-                System.out.print(", price: " + price + "\n");
+                System.out.print(", price: " + String.format("%.2f", price) + "\n");
 
             }
 
-            SaveToCsvFile.saveFile(rs);
-
-            // Clean-up environment
-            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return rs;
     }
 
     //CALCULATIONS
@@ -164,13 +166,9 @@ class DBHelper {
         try {
             rs = stmt.executeQuery(query);
             rs.next();
-
             result = rs.getDouble(columnLabel);
-
-            SaveToCsvFile.saveFile(rs);
-
-            // Clean-up environment
             rs.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

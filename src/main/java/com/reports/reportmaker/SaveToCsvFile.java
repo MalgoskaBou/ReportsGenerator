@@ -11,15 +11,32 @@ import java.sql.SQLException;
 
 class SaveToCsvFile {
 
-    static void saveFile(ResultSet result) {
+    static void saveFileWithASingleValue(String result) {
 
-        FileWriter out;
+        try {
+            FileWriter out = new FileWriter("report_generated.csv");
+            CSVPrinter csvPrinter = new CSVPrinter(out, CSVFormat.DEFAULT);
+
+            csvPrinter.print(result);
+
+            out.flush();
+            out.close();
+            csvPrinter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    static void saveFileFromResultSet(ResultSet result) {
+
         try {
             //cursor reset
             result.beforeFirst();
 
             //create file
-            out = new FileWriter("report_generated.csv");
+            FileWriter out = new FileWriter("report_generated.csv");
 
             CSVPrinter csvPrinter = new CSVPrinter(out, CSVFormat.DEFAULT);
 
@@ -27,6 +44,12 @@ class SaveToCsvFile {
                 //get number of columns from metadata
                 ResultSetMetaData metaDataRs = result.getMetaData();
                 int numberOfColumns = metaDataRs.getColumnCount();
+
+                for (int i = 0; i < numberOfColumns; ++i) {
+
+                    csvPrinter.print(metaDataRs.getColumnName(i + 1));
+                }
+                csvPrinter.println();
 
                 while (result.next()) {
 
@@ -44,6 +67,7 @@ class SaveToCsvFile {
                 out.flush();
                 out.close();
                 csvPrinter.close();
+                result.close();
                 System.out.println("Your report has been generated.");
             }
 

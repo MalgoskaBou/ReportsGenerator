@@ -39,6 +39,8 @@ class ReadFileCSV {
                 }
             }
 
+            reader.close();
+            csvParser.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

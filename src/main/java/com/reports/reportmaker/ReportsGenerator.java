@@ -2,6 +2,8 @@ package com.reports.reportmaker;
 
 import org.apache.commons.io.FilenameUtils;
 
+import java.sql.ResultSet;
+
 public class ReportsGenerator {
 
 
@@ -33,53 +35,60 @@ public class ReportsGenerator {
             int userChoice = UserMenu.menu();
             String query;
             String query2;
-            String columnLabel;
+            String columnLabel = "price";
             String customerIdentifier;
+            ResultSet rs;
 
             //take the user's choice
             switch (userChoice) {
                 case 1:
-                    columnLabel = "price";
                     query = "SELECT COUNT(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS";
                     System.out.println(DBHelper.calculateData(query, columnLabel));
+                    SaveToCsvFile.saveFileWithASingleValue(String.valueOf(DBHelper.calculateData(query, columnLabel)));
                     break;
                 case 2:
                     customerIdentifier = UserMenu.getCustomerIdentifier();
                     query = "SELECT * FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
-                    DBHelper.showWholeData(query);
+                    rs = DBHelper.showWholeData(query);
+                    SaveToCsvFile.saveFileFromResultSet(rs);
                     break;
                 case 3:
-                    columnLabel = "price";
                     query = "SELECT SUM(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS";
                     System.out.println(DBHelper.calculateData(query, columnLabel));
+                    SaveToCsvFile.saveFileWithASingleValue(String.valueOf(DBHelper.calculateData(query, columnLabel)));
                     break;
                 case 4:
                     customerIdentifier = UserMenu.getCustomerIdentifier();
-                    columnLabel = "price";
                     query = "SELECT SUM(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
                     System.out.println(DBHelper.calculateData(query, columnLabel));
+                    SaveToCsvFile.saveFileWithASingleValue(String.valueOf(DBHelper.calculateData(query, columnLabel)));
                     break;
                 case 5:
                     query = "SELECT * FROM RAPPORTS";
-                    DBHelper.showWholeData(query);
+                    rs = DBHelper.showWholeData(query);
+                    SaveToCsvFile.saveFileFromResultSet(rs);
                     break;
                 case 6:
                     customerIdentifier = UserMenu.getCustomerIdentifier();
-                    query = "SELECT id, clientId, requestId, name, quantity, price FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
-                    DBHelper.showWholeData(query);
+                    query = "SELECT * FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
+                    rs = DBHelper.showWholeData(query);
+                    SaveToCsvFile.saveFileFromResultSet(rs);
                     break;
                 case 7:
-                    columnLabel = "price";
                     query = "SELECT SUM(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS";
                     query2 = "SELECT COUNT(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS";
-                    System.out.println((DBHelper.calculateData(query, columnLabel) / DBHelper.calculateData(query2, columnLabel)));
+                    double resultPrice = DBHelper.calculateData(query, columnLabel) / DBHelper.calculateData(query2, columnLabel);
+                    System.out.println(resultPrice);
+                    SaveToCsvFile.saveFileWithASingleValue(String.valueOf(resultPrice));
+
                     break;
                 case 8:
                     customerIdentifier = UserMenu.getCustomerIdentifier();
-                    columnLabel = "price";
                     query = "SELECT SUM(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
                     query2 = "SELECT COUNT(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
-                    System.out.println((DBHelper.calculateData(query, columnLabel) / DBHelper.calculateData(query2, columnLabel)));
+                    double resultPrice2 = DBHelper.calculateData(query, columnLabel) / DBHelper.calculateData(query2, columnLabel);
+                    System.out.println(resultPrice2);
+                    SaveToCsvFile.saveFileWithASingleValue(String.valueOf(resultPrice2));
                     break;
                 default:
                     System.out.println("There is no such option on the menu");
