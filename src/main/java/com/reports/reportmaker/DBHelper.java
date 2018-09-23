@@ -23,7 +23,7 @@ class DBHelper {
             // Open a connection
             conn = DriverManager.getConnection(DataClass.DB_URL, DataClass.USER, DataClass.PASS);
             System.out.println("Connected database successfully...");
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
 
         } catch (ClassNotFoundException | SQLException e) {
             // Handle errors for Class.forName
@@ -122,7 +122,6 @@ class DBHelper {
      */
 
     //LISTS
-
     static void showWholeData(String query) {
 
         ResultSet rs;
@@ -147,6 +146,9 @@ class DBHelper {
                 System.out.print(", price: " + price + "\n");
 
             }
+
+            SaveToCsvFile.saveFile(rs);
+
             // Clean-up environment
             rs.close();
         } catch (SQLException e) {
@@ -155,7 +157,6 @@ class DBHelper {
     }
 
     //CALCULATIONS
-
     static double calculateData(String query, String columnLabel) {
 
         ResultSet rs;
@@ -163,7 +164,10 @@ class DBHelper {
         try {
             rs = stmt.executeQuery(query);
             rs.next();
-            result = rs.getLong(columnLabel);
+
+            result = rs.getDouble(columnLabel);
+
+            SaveToCsvFile.saveFile(rs);
 
             // Clean-up environment
             rs.close();
@@ -172,5 +176,4 @@ class DBHelper {
         }
         return result;
     }
-
 }

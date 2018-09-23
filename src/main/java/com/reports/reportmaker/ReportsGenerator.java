@@ -5,11 +5,7 @@ import org.apache.commons.io.FilenameUtils;
 public class ReportsGenerator {
 
 
-
     public static void main(String[] args) {
-        args = new String[2];
-        args[0]="report1.csv";
-        args[1]="report2.xml";
 
         DBHelper.openDBConnection();
         DBHelper.createTable();
@@ -43,13 +39,13 @@ public class ReportsGenerator {
             //take the user's choice
             switch (userChoice) {
                 case 1:
-                    columnLabel = "id";
+                    columnLabel = "price";
                     query = "SELECT COUNT("+columnLabel+") AS "+columnLabel+" FROM RAPPORTS";
                     System.out.println(DBHelper.calculateData(query, columnLabel));
                     break;
                 case 2:
                     customerIdentifier= UserMenu.getCustomerIdentifier();
-                    query = "SELECT id, clientId, requestId, name, quantity, price FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
+                    query = "SELECT * FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
                     DBHelper.showWholeData(query);
                     break;
                 case 3:
@@ -64,8 +60,8 @@ public class ReportsGenerator {
                     System.out.println(DBHelper.calculateData(query, columnLabel));
                     break;
                 case 5:
-                    String sqlWholeData = "SELECT id, clientId, requestId, name, quantity, price FROM RAPPORTS";
-                    DBHelper.showWholeData(sqlWholeData);
+                    query = "SELECT * FROM RAPPORTS";
+                    DBHelper.showWholeData(query);
                     break;
                 case 6:
                     customerIdentifier= UserMenu.getCustomerIdentifier();
