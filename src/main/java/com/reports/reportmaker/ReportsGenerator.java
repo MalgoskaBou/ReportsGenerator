@@ -37,6 +37,7 @@ public class ReportsGenerator {
             String query2;
             String columnLabel = "price";
             String customerIdentifier;
+            double priceCountResult;
             ResultSet rs;
 
             //take the user's choice
@@ -77,18 +78,18 @@ public class ReportsGenerator {
                 case 7:
                     query = "SELECT SUM(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS";
                     query2 = "SELECT COUNT(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS";
-                    double resultPrice = DBHelper.calculateData(query, columnLabel) / DBHelper.calculateData(query2, columnLabel);
-                    System.out.println(resultPrice);
-                    SaveToCsvFile.saveFileWithASingleValue(String.valueOf(resultPrice));
+                    priceCountResult = DBHelper.calculateData(query, columnLabel) / DBHelper.calculateData(query2, columnLabel);
+                    System.out.println(priceCountResult);
+                    SaveToCsvFile.saveFileWithASingleValue(String.valueOf(priceCountResult));
 
                     break;
                 case 8:
                     customerIdentifier = UserMenu.getCustomerIdentifier();
                     query = "SELECT SUM(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
                     query2 = "SELECT COUNT(" + columnLabel + ") AS " + columnLabel + " FROM RAPPORTS WHERE clientId='" + customerIdentifier + "'";
-                    double resultPrice2 = DBHelper.calculateData(query, columnLabel) / DBHelper.calculateData(query2, columnLabel);
-                    System.out.println(resultPrice2);
-                    SaveToCsvFile.saveFileWithASingleValue(String.valueOf(resultPrice2));
+                    priceCountResult = DBHelper.calculateData(query, columnLabel) / DBHelper.calculateData(query2, columnLabel);
+                    System.out.println(priceCountResult);
+                    SaveToCsvFile.saveFileWithASingleValue(String.valueOf(priceCountResult));
                     break;
                 default:
                     System.out.println("There is no such option on the menu");

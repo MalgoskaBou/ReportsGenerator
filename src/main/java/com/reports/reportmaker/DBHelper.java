@@ -1,7 +1,6 @@
 package com.reports.reportmaker;
 
 import java.sql.*;
-import java.text.DecimalFormat;
 
 class DBHelper {
 
@@ -41,11 +40,11 @@ class DBHelper {
             // Create table with the necessary columns
             String sqlCreate = "CREATE TABLE   RAPPORTS " +
                     "(id INTEGER not NULL AUTO_INCREMENT, " +
-                    " clientId VARCHAR(6), " +
-                    " requestId LONG, " +
-                    " name VARCHAR(255), " +
-                    " quantity INTEGER, " +
-                    " price DOUBLE, " +
+                    " clientId VARCHAR(6) not NULL, " +
+                    " requestId LONG not NULL, " +
+                    " name VARCHAR(255) not NULL, " +
+                    " quantity INTEGER not NULL, " +
+                    " price DOUBLE not NULL, " +
                     " PRIMARY KEY ( id ))";
             stmt.executeUpdate(sqlCreate);
 
