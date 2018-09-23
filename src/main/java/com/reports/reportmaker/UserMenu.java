@@ -20,8 +20,7 @@ class UserMenu {
         System.out.println("7 - Average value of the order");
         System.out.println("8 - Average value of the order from the customer with the given identifier");
 
-        System.out.println("9 - Quit");
-        System.out.print("Choose report to generate: ");
+        System.out.print("Choose report to generate by entering a number from the menu: ");
 
         selection = input.nextInt();
         return selection;
