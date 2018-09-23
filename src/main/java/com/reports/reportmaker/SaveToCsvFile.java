@@ -11,12 +11,14 @@ import java.sql.SQLException;
 
 class SaveToCsvFile {
 
-    static void saveFileWithASingleValue(String result) {
+    static void saveFileWithASingleValue(String result, String reportName) {
 
         try {
             FileWriter out = new FileWriter("report_generated.csv");
             CSVPrinter csvPrinter = new CSVPrinter(out, CSVFormat.DEFAULT);
 
+            csvPrinter.print(reportName);
+            csvPrinter.println();
             csvPrinter.print(result);
 
             out.flush();
