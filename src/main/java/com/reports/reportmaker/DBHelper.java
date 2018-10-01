@@ -20,10 +20,10 @@ class DBHelper {
 
         try {
             // Register JDBC driver
-            Class.forName(DataClass.JDBC_DRIVER);
+            Class.forName(ConstDataClass.JDBC_DRIVER);
 
             // Open a connection
-            conn = DriverManager.getConnection(DataClass.DB_URL, DataClass.USER, DataClass.PASS);
+            conn = DriverManager.getConnection(ConstDataClass.DB_URL, ConstDataClass.USER, ConstDataClass.PASS);
             System.out.println("Connected database successfully...");
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
 
@@ -79,7 +79,7 @@ class DBHelper {
     /*
      * Checks whether the data is correct and saves it using the function @insertData
      * */
-    static void checkCorrectDataAndSafe(DataObject object) {
+    static void checkCorrectDataAndSafe(DataModel object, String errorIdentif) {
 
         try {
             //parse strings to correct formats and delete white-spaces from clientID
@@ -105,7 +105,7 @@ class DBHelper {
 
         } catch (Exception e) {
             //throw parse exception for wrong format data, and too long value in varChar
-            System.out.println(object.getRequestID() + " probably wrong data format in: " + object.getErrorIdentyficator());
+            System.out.println(object.getRequestID() + " probably wrong data format in: " + errorIdentif);
             e.printStackTrace();
         }
     }
@@ -127,7 +127,7 @@ class DBHelper {
     }
 
     /**
-     * GENERATE REPORTS
+     * SHOW DATA
      */
 
     //LISTS
@@ -162,7 +162,7 @@ class DBHelper {
     }
 
     //CALCULATIONS
-    static double calculateData(String query, String columnLabel) {
+    static double showCalculateData(String query, String columnLabel) {
 
         //ResultSet rs;
         double result = 0;
@@ -170,6 +170,9 @@ class DBHelper {
             rs = stmt.executeQuery(query);
             rs.next();
             result = rs.getDouble(columnLabel);
+
+            // Display value
+            System.out.println(result);
 
         } catch (SQLException e) {
             e.printStackTrace();

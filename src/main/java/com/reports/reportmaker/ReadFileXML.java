@@ -10,13 +10,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 
 
-import static com.reports.reportmaker.DataClass.*;
+import static com.reports.reportmaker.ConstDataClass.*;
 
 class ReadFileXML {
 
     static void readData(String file) {
         File inputFile = new File(file);
-        DataObject dataLine;
+        DataModel dataLine;
 
         try {
 
@@ -44,14 +44,13 @@ class ReadFileXML {
 
                     } else {
 
-                        dataLine = new DataObject(eElement.getElementsByTagName(CLIENT_ID).item(0).getTextContent(),
+                        dataLine = new DataModel(eElement.getElementsByTagName(CLIENT_ID).item(0).getTextContent(),
                                 eElement.getElementsByTagName(REQUEST_ID).item(0).getTextContent(),
                                 eElement.getElementsByTagName(NAME).item(0).getTextContent(),
                                 eElement.getElementsByTagName(QUANTITY).item(0).getTextContent(),
-                                eElement.getElementsByTagName(PRICE).item(0).getTextContent(),
-                                errorIdent);
+                                eElement.getElementsByTagName(PRICE).item(0).getTextContent());
 
-                        DBHelper.checkCorrectDataAndSafe(dataLine);
+                        DBHelper.checkCorrectDataAndSafe(dataLine, errorIdent);
                     }
                 }
             }

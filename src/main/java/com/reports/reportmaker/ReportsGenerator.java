@@ -2,7 +2,8 @@ package com.reports.reportmaker;
 
 import org.apache.commons.io.FilenameUtils;
 
-import java.sql.ResultSet;
+import static com.reports.reportmaker.GenerateReportsOptions.generateReportCount;
+import static com.reports.reportmaker.GenerateReportsOptions.generateReportList;
 
 public class ReportsGenerator {
 
@@ -39,28 +40,28 @@ public class ReportsGenerator {
             //take the user's choice
             switch (userChoice) {
                 case 1:
-                    UserMenu.generateReportCount(false, "COUNT", "id");
+                    generateReportCount(false, "COUNT", "id");
                     break;
                 case 2:
-                    UserMenu.generateReportCount(true, "COUNT", "id");
+                    generateReportCount(true, "COUNT", "id");
                     break;
                 case 3:
-                    UserMenu.generateReportCount(false, "SUM", "price");
+                    generateReportCount(false, "SUM", "price");
                     break;
                 case 4:
-                    UserMenu.generateReportCount(true, "SUM", "price");
+                    generateReportCount(true, "SUM", "price");
                     break;
                 case 5:
-                    UserMenu.generateReportList(false);
+                    generateReportList(false);
                     break;
                 case 6:
-                    UserMenu.generateReportList(true);
+                    generateReportList(true);
                     break;
                 case 7:
-                    UserMenu.generateReportCount(false, "AVG", "price");
+                    generateReportCount(false, "AVG", "price");
                     break;
                 case 8:
-                    UserMenu.generateReportCount(true, "SUM", "price");
+                    generateReportCount(true, "SUM", "price");
                     break;
                 default:
                     System.out.println("There is no such option on the menu");

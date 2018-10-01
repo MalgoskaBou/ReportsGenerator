@@ -1,6 +1,6 @@
 package com.reports.reportmaker;
 
-final class DataClass {
+final class ConstDataClass {
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "org.h2.Driver";

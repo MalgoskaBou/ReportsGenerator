@@ -1,22 +1,20 @@
 package com.reports.reportmaker;
 
-class DataObject {
+class DataModel {
 
     private String clientID;
     private String requestID;
     private String name;
     private String quantity;
     private String price;
-    private String errorIdentyficator;
 
 
-    DataObject(String clientID, String requestID, String name, String quantity, String price, String errorIdentyficator) {
+    DataModel(String clientID, String requestID, String name, String quantity, String price) {
         this.clientID = clientID;
         this.requestID = requestID;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
-        this.errorIdentyficator = errorIdentyficator;
     }
 
     String getClientID() {
@@ -37,9 +35,5 @@ class DataObject {
 
     String getPrice() {
         return price;
-    }
-
-    String getErrorIdentyficator() {
-        return errorIdentyficator;
     }
 }
