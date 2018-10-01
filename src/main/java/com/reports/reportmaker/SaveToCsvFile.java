@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-class SaveToCsvFile {
+class   SaveToCsvFile {
 
     static void saveFileWithASingleValue(String result, String reportName) {
 

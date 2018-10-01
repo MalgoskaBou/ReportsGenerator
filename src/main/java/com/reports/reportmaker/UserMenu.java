@@ -1,6 +1,5 @@
 package com.reports.reportmaker;
 
-import java.sql.ResultSet;
 import java.util.Scanner;
 
 class UserMenu {
