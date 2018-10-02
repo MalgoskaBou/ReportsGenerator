@@ -9,7 +9,7 @@ class DataModel {
     private double price;
 
 
-    public DataModel(String clientID, long requestID, String name, int quantity, double price) {
+    DataModel(String clientID, long requestID, String name, int quantity, double price) {
         this.clientID = clientID;
         this.requestID = requestID;
         this.name = name;
@@ -17,43 +17,24 @@ class DataModel {
         this.price = price;
     }
 
-    public String getClientID() {
+    String getClientID() {
         return clientID;
     }
 
-    public void setClientID(String clientID) {
-        this.clientID = clientID;
-    }
-
-    public long getRequestID() {
+    long getRequestID() {
         return requestID;
     }
 
-    public void setRequestID(long requestID) {
-        this.requestID = requestID;
-    }
-
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuantity() {
+    int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getPrice() {
+    double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }
