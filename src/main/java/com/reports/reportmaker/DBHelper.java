@@ -47,7 +47,7 @@ class DBHelper {
                     " requestId LONG not NULL, " +
                     " name VARCHAR(255) not NULL, " +
                     " quantity INTEGER not NULL, " +
-                    " price DOUBLE not NULL, " +
+                    " price DECIMAL(7 , 2 ) not NULL, " +
                     " PRIMARY KEY ( id ))";
             stmt.executeUpdate(sqlCreate);
 

@@ -1,5 +1,7 @@
 package com.reports.reportmaker;
 
+import java.text.DecimalFormat;
+
 class DataLineObj {
 
     private String clientID;
@@ -28,10 +30,8 @@ class DataLineObj {
             long validateRequestID = Long.parseLong(requestID);
             int validateQuantity = Integer.parseInt(quantity);
 
-            //makes sure that the entry price has 2 decimal places - I use ROUND_HALF_UP!!!
+            //save to database as a DECIMAL(7,2)
             double validatePrice = Double.parseDouble(price);
-            validatePrice = Math.round(validatePrice * 100) / 100D;
-
 
             //checking if these values are within the varchar range
             if (validateClientID.length() > 6) {
