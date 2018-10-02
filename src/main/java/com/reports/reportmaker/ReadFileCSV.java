@@ -7,12 +7,15 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.BufferedReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 class ReadFileCSV {
 
-    static void readData(String file) {
+    static ArrayList<DataModel> readData(String file) {
 
-        DataModel dataLine;
+        DataLineObj dataLine;
+        ArrayList<DataModel> listOfDataFromFile = new ArrayList<>();
+
         try {
             BufferedReader reader = Files.newBufferedReader(Paths.get(file));
             reader.readLine();
@@ -24,13 +27,18 @@ class ReadFileCSV {
 
                 try {
                     // Accessing Values by Column Index
-                    dataLine = new DataModel(csvRecord.get(0),
+                    dataLine = new DataLineObj(csvRecord.get(0),
                             csvRecord.get(1),
                             csvRecord.get(2),
                             csvRecord.get(3),
-                            csvRecord.get(4));
+                            csvRecord.get(4),
+                            errorIdent);
 
-                    DBHelper.checkCorrectDataAndSafe(dataLine, errorIdent);
+                    DataModel validatedDataLine = dataLine.validateData();
+                    if (validatedDataLine != null) {
+                        listOfDataFromFile.add(validatedDataLine);
+                    }
+
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //catch exception if missing element
                     e.printStackTrace();
@@ -43,5 +51,6 @@ class ReadFileCSV {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return listOfDataFromFile;
     }
 }

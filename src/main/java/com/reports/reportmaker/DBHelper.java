@@ -1,6 +1,7 @@
 package com.reports.reportmaker;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 class DBHelper {
 
@@ -60,53 +61,25 @@ class DBHelper {
     /*
      * FUNCTION RESPONSIBLE FOR INSErt DATA TO DATABASE
      * */
-    private static void insertData(String clientId, long requestId, String name, int quantity, double price) {
+    static void insertData(ArrayList<DataModel> dataModels) {
         // Insert data query
-        String sqlInsert = "INSERT INTO RAPPORTS " + "VALUES (default, '" +
-                clientId + "', " +
-                requestId + ", '" +
-                name + "', " +
-                quantity + ", " +
-                price + ")";
-        try {
-            stmt.executeUpdate(sqlInsert);
-        } catch (SQLException e) {
-            // Handle errors for executeUpdate
-            e.printStackTrace();
-        }
-    }
 
-    /*
-     * Checks whether the data is correct and saves it using the function @insertData
-     * */
-    static void checkCorrectDataAndSafe(DataModel object, String errorIdentif) {
+        if (dataModels.size() > 0) {
+            for (DataModel datamodel : dataModels) {
 
-        try {
-            //parse strings to correct formats and delete white-spaces from clientID
-            String clientID = object.getClientID().replaceAll("\\s", "");
-            long requestID = Long.parseLong(object.getRequestID());
-            int quantity = Integer.parseInt(object.getQuantity());
-
-            //makes sure that the entry price has 2 decimal places - I use ROUND_HALF_UP!!!
-            double price = Double.parseDouble(object.getPrice());
-            price = Math.round(price * 100) / 100D;
-
-
-            //checking if these values are within the varchar range
-            if (clientID.length() > 6) {
-                throw new Exception("too long clientID");
+                String sqlInsert = "INSERT INTO RAPPORTS " + "VALUES (default, '" +
+                        datamodel.getClientID() + "', " +
+                        datamodel.getRequestID() + ", '" +
+                        datamodel.getName() + "', " +
+                        datamodel.getQuantity() + ", " +
+                        datamodel.getPrice() + ")";
+                try {
+                    stmt.executeUpdate(sqlInsert);
+                } catch (SQLException e) {
+                    // Handle errors for executeUpdate
+                    e.printStackTrace();
+                }
             }
-            if (object.getName().length() > 255) {
-                throw new Exception("too long name of product");
-            }
-
-            // save data in database with insertData function
-            insertData(clientID, requestID, object.getName(), quantity, price);
-
-        } catch (Exception e) {
-            //throw parse exception for wrong format data, and too long value in varChar
-            System.out.println(object.getRequestID() + " probably wrong data format in: " + errorIdentif);
-            e.printStackTrace();
         }
     }
 

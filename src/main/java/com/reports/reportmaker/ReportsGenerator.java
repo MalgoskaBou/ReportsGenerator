@@ -4,6 +4,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import static com.reports.reportmaker.DBHelper.insertData;
 import static com.reports.reportmaker.GenerateReportsOptions.generateReportCount;
 import static com.reports.reportmaker.GenerateReportsOptions.generateReportList;
 
@@ -28,10 +29,11 @@ public class ReportsGenerator {
                 System.out.print("Loading file: " + arg + "\n");
                 switch (FilenameUtils.getExtension(arg)) {
                     case "xml":
-                        ReadFileXML.readData(arg);
+                        insertData(ReadFileXML.readData(arg));
+                        //saveData
                         break;
                     case "csv":
-                        ReadFileCSV.readData(arg);
+                        insertData(ReadFileCSV.readData(arg));
                         break;
                     default:
                         System.out.println("Wrong file format - expected .csv or .xml");

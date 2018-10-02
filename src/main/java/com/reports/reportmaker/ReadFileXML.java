@@ -8,15 +8,17 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
+import java.util.ArrayList;
 
 
 import static com.reports.reportmaker.ConstDataClass.*;
 
 class ReadFileXML {
 
-    static void readData(String file) {
+    static ArrayList<DataModel> readData(String file) {
         File inputFile = new File(file);
-        DataModel dataLine;
+        DataLineObj dataLine;
+        ArrayList<DataModel> listOfDataFromFile = new ArrayList<>();
 
         try {
 
@@ -44,13 +46,17 @@ class ReadFileXML {
 
                     } else {
 
-                        dataLine = new DataModel(eElement.getElementsByTagName(CLIENT_ID).item(0).getTextContent(),
+                        dataLine = new DataLineObj(eElement.getElementsByTagName(CLIENT_ID).item(0).getTextContent(),
                                 eElement.getElementsByTagName(REQUEST_ID).item(0).getTextContent(),
                                 eElement.getElementsByTagName(NAME).item(0).getTextContent(),
                                 eElement.getElementsByTagName(QUANTITY).item(0).getTextContent(),
-                                eElement.getElementsByTagName(PRICE).item(0).getTextContent());
+                                eElement.getElementsByTagName(PRICE).item(0).getTextContent(),
+                                errorIdent);
 
-                        DBHelper.checkCorrectDataAndSafe(dataLine, errorIdent);
+                        DataModel validatedDataLine = dataLine.validateData();
+                        if (validatedDataLine != null) {
+                            listOfDataFromFile.add(validatedDataLine);
+                        }
                     }
                 }
             }
@@ -59,5 +65,6 @@ class ReadFileXML {
             System.out.println("probably wrong file format: " + file);
             e.printStackTrace();
         }
+        return listOfDataFromFile;
     }
 }
