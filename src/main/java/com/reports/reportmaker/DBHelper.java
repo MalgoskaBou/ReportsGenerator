@@ -1,7 +1,11 @@
 package com.reports.reportmaker;
 
 import java.sql.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 class DBHelper {
 
@@ -135,16 +139,21 @@ class DBHelper {
     }
 
     //CALCULATIONS
-    static double showCalculateData(String query, String columnLabel) {
+    static String showCalculateData(String query, String columnLabel) {
 
         //ResultSet rs;
-        double result = 0;
+        String result = null;
         try {
             rs = stmt.executeQuery(query);
             rs.next();
-            result = rs.getDouble(columnLabel);
 
-            // Display value
+
+            // Set decimal format with dot like a separator
+            DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.getDefault());
+            otherSymbols.setDecimalSeparator('.');
+            DecimalFormat decimalFormat = new DecimalFormat("#####.##", otherSymbols);
+
+            result = decimalFormat.format(rs.getDouble(columnLabel));
             System.out.println(result);
 
         } catch (SQLException e) {

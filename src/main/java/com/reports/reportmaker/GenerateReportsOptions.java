@@ -26,7 +26,7 @@ class GenerateReportsOptions {
             query = query + " WHERE clientId='" + customerIdentifier + "'";
             reportName = reportName + " where clientID is - " + customerIdentifier;
         }
-        double res = DBHelper.showCalculateData(query, columnId);
+        String res = DBHelper.showCalculateData(query, columnId);
         SaveToCsvFile.saveFileWithASingleValue(String.valueOf(res), reportName);
     }
 }
