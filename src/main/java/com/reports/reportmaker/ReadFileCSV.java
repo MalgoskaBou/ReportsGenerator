@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * the class responsible for reading information from CSV file
+ */
 class ReadFileCSV {
 
     static ArrayList<DataModel> readData(String file) {

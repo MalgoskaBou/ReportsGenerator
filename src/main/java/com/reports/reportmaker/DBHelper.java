@@ -3,10 +3,12 @@ package com.reports.reportmaker;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ * functions manipulating the database
+ */
 class DBHelper {
 
     private static Connection conn = null;
@@ -15,12 +17,8 @@ class DBHelper {
 
 
     /**
-     * CREATE DB
+     * OPEN DATABASE CONNECTION
      */
-
-    /*
-     * OPEN DATA-BASE CONNECTION
-     * */
     static void openDBConnection() {
 
         try {
@@ -38,7 +36,7 @@ class DBHelper {
         }
     }
 
-    /*
+    /**
      * CREATE A TABLE WITH A MANDATORY FIELDS
      * */
     static void createTable() {
@@ -62,7 +60,7 @@ class DBHelper {
         }
     }
 
-    /*
+    /**
      * FUNCTION RESPONSIBLE FOR INSErt DATA TO DATABASE
      * */
     static void insertData(ArrayList<DataModel> dataModels) {
@@ -87,9 +85,9 @@ class DBHelper {
         }
     }
 
-    /*
-     *CLOSING DATABASE CONNECTION AND CLEAN UP ENVIRONMENT
-     * */
+    /**
+     * CLOSE DATABASE
+     */
     static void closeDB() {
         try {
             stmt.close();
@@ -104,10 +102,10 @@ class DBHelper {
     }
 
     /**
-     * SHOW DATA
+     * Shows a list of data - it gets many records
+     * @param query SQL query to the database
+     * @return ResultSet element containing many rows from the database
      */
-
-    //LISTS
     static ResultSet showWholeData(String query) {
 
         try {
@@ -138,7 +136,13 @@ class DBHelper {
         return rs;
     }
 
-    //CALCULATIONS
+    /**
+     * Shows the calculated element from the selected column from the database
+     *
+     * @param query       SQL query to the database
+     * @param columnLabel selected column on which the calculations will be made
+     * @return single calculated value in String to avoid rounding errors
+     */
     static String showCalculateData(String query, String columnLabel) {
 
         //ResultSet rs;

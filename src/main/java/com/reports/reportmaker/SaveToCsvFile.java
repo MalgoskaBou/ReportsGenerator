@@ -9,6 +9,10 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+
+/**
+ * the class responsible for saving information to CSV file - output info
+ */
 class   SaveToCsvFile {
 
     static void saveFileWithASingleValue(String result, String reportName) {

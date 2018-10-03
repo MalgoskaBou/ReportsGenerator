@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import static com.reports.reportmaker.UserMenu.getCustomerIdentifier;
 
+//todo reformat
 class GenerateReportsOptions {
 
 

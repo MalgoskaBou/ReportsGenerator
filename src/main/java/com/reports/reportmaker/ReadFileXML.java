@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 import static com.reports.reportmaker.ConstDataClass.*;
 
+/**
+ * the class responsible for reading information from XML file
+ */
 class ReadFileXML {
 
     static ArrayList<DataModel> readData(String file) {

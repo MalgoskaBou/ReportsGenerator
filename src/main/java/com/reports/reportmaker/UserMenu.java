@@ -2,8 +2,16 @@ package com.reports.reportmaker;
 
 import java.util.Scanner;
 
+/**
+ * menu support in the console
+ */
 class UserMenu {
 
+    /**
+     * Main menu
+     *
+     * @return selected value by the user (int)
+     */
     static int menu() {
 
         int selection;
@@ -26,6 +34,10 @@ class UserMenu {
         return selection;
     }
 
+    /**
+     * additional information about customer ID
+     * @return selected customer ID by user (String)
+     */
     static String getCustomerIdentifier() {
 
         String selection;
