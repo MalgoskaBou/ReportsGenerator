@@ -8,16 +8,18 @@ import static com.reports.reportmaker.DBHelper.insertData;
 import static com.reports.reportmaker.GenerateReportsOptions.generateReportCount;
 import static com.reports.reportmaker.GenerateReportsOptions.generateReportList;
 
+/**
+ * Main
+ */
 @SpringBootApplication
 public class ReportsGenerator {
 
     public static void main(String[] args) {
-            SpringApplication.run(ReportsGenerator.class, args);
+        SpringApplication.run(ReportsGenerator.class, args);
 
-    //public static void main(String[] args) {
+        //public static void main(String[] args) {
 
 
-        //data base connection and create table
         DBHelper.openDBConnection();
         DBHelper.createTable();
 

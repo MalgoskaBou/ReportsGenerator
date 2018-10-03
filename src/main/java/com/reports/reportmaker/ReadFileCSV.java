@@ -10,10 +10,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- * the class responsible for reading information from CSV file
+ * the class responsible for reading information from CSV file (using commons-csv library)
  */
 class ReadFileCSV {
 
+    /**
+     * Processes and validates data from a file to an object that is ready to write to the database
+     *
+     * @param file file patch
+     * @return list of {@link DataModel} objects which represent individual rows of the database
+     */
     static ArrayList<DataModel> readData(String file) {
 
         DataLineObj dataLine;

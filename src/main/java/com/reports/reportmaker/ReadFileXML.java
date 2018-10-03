@@ -18,6 +18,12 @@ import static com.reports.reportmaker.ConstDataClass.*;
  */
 class ReadFileXML {
 
+    /**
+     * Processes and validates data from a file to an object that is ready to write to the database
+     *
+     * @param file file patch
+     * @return list of {@link DataModel} objects which represent individual rows of the database
+     */
     static ArrayList<DataModel> readData(String file) {
         File inputFile = new File(file);
         DataLineObj dataLine;

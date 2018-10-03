@@ -11,10 +11,17 @@ import java.sql.SQLException;
 
 
 /**
- * the class responsible for saving information to CSV file - output info
+ * The class responsible for saving information to CSV file - output info
  */
 class   SaveToCsvFile {
 
+    /**
+     * Writes a csv file with a single calculated value and its description
+     * Method used to save CSV file in {@link GenerateReportsOptions#generateReportCount(Boolean, String, String)}
+     *
+     * @param result     result of the calculated value
+     * @param reportName description of the calculated value
+     */
     static void saveFileWithASingleValue(String result, String reportName) {
 
         try {
@@ -35,6 +42,11 @@ class   SaveToCsvFile {
 
     }
 
+    /**
+     * Writes a csv file with a multiple data from database with columns headers
+     * Method used to save CSV file in {@link GenerateReportsOptions#generateReportList(Boolean)}
+     * @param result gets the ResultSet object with data returned by {@link DBHelper#getDataByQuery(String)}
+     */
     static void saveFileFromResultSet(ResultSet result) {
 
         try {

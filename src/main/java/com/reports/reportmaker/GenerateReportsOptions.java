@@ -2,6 +2,9 @@ package com.reports.reportmaker;
 
 import java.sql.ResultSet;
 
+import static com.reports.reportmaker.DBHelper.getDataByQueryFunction;
+import static com.reports.reportmaker.DBHelper.getDataByQuery;
+import static com.reports.reportmaker.SaveToCsvFile.*;
 import static com.reports.reportmaker.UserMenu.getCustomerIdentifier;
 
 //todo reformat
@@ -14,8 +17,8 @@ class GenerateReportsOptions {
             String customerIdentifier = getCustomerIdentifier();
             query = query + " WHERE clientId='" + customerIdentifier + "'";
         }
-        ResultSet rs = DBHelper.showWholeData(query);
-        SaveToCsvFile.saveFileFromResultSet(rs);
+        ResultSet rs = getDataByQuery(query);
+        saveFileFromResultSet(rs);
     }
 
     static void generateReportCount(Boolean customerIdentifierFilter, String typeOfCount, String columnId) {
@@ -27,7 +30,17 @@ class GenerateReportsOptions {
             query = query + " WHERE clientId='" + customerIdentifier + "'";
             reportName = reportName + " where clientID is - " + customerIdentifier;
         }
-        String res = DBHelper.showCalculateData(query, columnId);
-        SaveToCsvFile.saveFileWithASingleValue(String.valueOf(res), reportName);
+        String res = getDataByQueryFunction(query, columnId);
+        saveFileWithASingleValue(String.valueOf(res), reportName);
+    }
+
+    static void showData(ResultSet rs) {
+        try {
+            while (rs.next()) {
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

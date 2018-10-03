@@ -1,7 +1,7 @@
 package com.reports.reportmaker;
 
 /**
- * Class for storing constant data
+ * Storing constant data
  * Database - database information
  * xml nodes -  xml tree information
  */

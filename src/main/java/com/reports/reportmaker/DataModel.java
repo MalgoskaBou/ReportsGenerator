@@ -1,7 +1,8 @@
 package com.reports.reportmaker;
 
 /**
- * Data model after validation - ready to write to the database
+ * Represents one row in the database
+ * - returned by {@link DataLineObj#validateData()}
  */
 class DataModel {
 

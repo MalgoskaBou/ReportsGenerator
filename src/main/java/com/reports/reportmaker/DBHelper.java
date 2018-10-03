@@ -106,7 +106,7 @@ class DBHelper {
      * @param query SQL query to the database
      * @return ResultSet element containing many rows from the database
      */
-    static ResultSet showWholeData(String query) {
+    static ResultSet getDataByQuery(String query) {
 
         try {
             rs = stmt.executeQuery(query);
@@ -137,13 +137,13 @@ class DBHelper {
     }
 
     /**
-     * Shows the calculated element from the selected column from the database
+     * Shows the calculated element from the selected column of database
      *
      * @param query       SQL query to the database
      * @param columnLabel selected column on which the calculations will be made
      * @return single calculated value in String to avoid rounding errors
      */
-    static String showCalculateData(String query, String columnLabel) {
+    static String getDataByQueryFunction(String query, String columnLabel) {
 
         //ResultSet rs;
         String result = null;
