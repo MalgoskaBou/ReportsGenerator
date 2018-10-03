@@ -16,36 +16,8 @@ import java.sql.SQLException;
 class   SaveToCsvFile {
 
     /**
-     * Writes a csv file with a single calculated value and its description
-     * Method used to save CSV file in {@link GenerateReportsOptions#generateReportCount(Boolean, String, String)}
-     *
-     * @param result     result of the calculated value
-     * @param reportName description of the calculated value
-     */
-    static void saveFileWithASingleValue(String result, String reportName) {
-
-        try {
-            FileWriter out = new FileWriter("report_generated.csv");
-            CSVPrinter csvPrinter = new CSVPrinter(out, CSVFormat.DEFAULT);
-
-            csvPrinter.print(reportName);
-            csvPrinter.println();
-            csvPrinter.print(result);
-
-            out.flush();
-            out.close();
-            csvPrinter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
      * Writes a csv file with a multiple data from database with columns headers
-     * Method used to save CSV file in {@link GenerateReportsOptions#generateReportList(Boolean)}
-     * @param result gets the ResultSet object with data returned by {@link DBHelper#getDataByQuery(String)}
+     * @param result gets the ResultSet object with data returned by {@link DBHelper#getData(String)}
      */
     static void saveFileFromResultSet(ResultSet result) {
 

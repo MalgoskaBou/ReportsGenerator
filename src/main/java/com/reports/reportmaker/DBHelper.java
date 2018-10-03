@@ -1,10 +1,7 @@
 package com.reports.reportmaker;
 
 import java.sql.*;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * functions manipulating the database
@@ -62,7 +59,8 @@ class DBHelper {
 
     /**
      * FUNCTION RESPONSIBLE FOR INSErt DATA TO DATABASE
-     * */
+     * @param dataModels ArrayList of {@link DataModel}
+     */
     static void insertData(ArrayList<DataModel> dataModels) {
         // Insert data query
 
@@ -86,6 +84,21 @@ class DBHelper {
     }
 
     /**
+     * Get data from database by query
+     *
+     * @param query query to the database
+     * @return ResultSet object with data
+     */
+    static ResultSet getData(String query) {
+        try {
+            rs = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
+    }
+
+    /**
      * CLOSE DATABASE
      */
     static void closeDB() {
@@ -99,70 +112,5 @@ class DBHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Shows a list of data - it gets many records
-     * @param query SQL query to the database
-     * @return ResultSet element containing many rows from the database
-     */
-    static ResultSet getDataByQuery(String query) {
-
-        try {
-            rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                // Retrieve by column name
-                int id = rs.getInt("id");
-                String clientId = rs.getString("clientId");
-                long requestId = rs.getLong("requestId");
-                String name = rs.getString("name");
-                int quantity = rs.getInt("quantity");
-                double price = rs.getDouble("price");
-
-                // Display values
-                System.out.print("ID: " + id + "\t");
-                System.out.print(", clientId: " + clientId + "\t");
-                System.out.print(", requestId: " + requestId + "\t");
-                System.out.print(", name: " + name + "\t");
-                System.out.print(", quantity: " + quantity + "\t");
-                System.out.print(", price: " + String.format("%.2f", price) + "\n");
-
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return rs;
-    }
-
-    /**
-     * Shows the calculated element from the selected column of database
-     *
-     * @param query       SQL query to the database
-     * @param columnLabel selected column on which the calculations will be made
-     * @return single calculated value in String to avoid rounding errors
-     */
-    static String getDataByQueryFunction(String query, String columnLabel) {
-
-        //ResultSet rs;
-        String result = null;
-        try {
-            rs = stmt.executeQuery(query);
-            rs.next();
-
-
-            // Set decimal format with dot like a separator
-            DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.getDefault());
-            otherSymbols.setDecimalSeparator('.');
-            DecimalFormat decimalFormat = new DecimalFormat("#####.##", otherSymbols);
-
-            result = decimalFormat.format(rs.getDouble(columnLabel));
-            System.out.println(result);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
     }
 }

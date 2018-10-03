@@ -1,27 +1,23 @@
 package com.reports.reportmaker;
 
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import static com.reports.reportmaker.DBHelper.insertData;
-import static com.reports.reportmaker.GenerateReportsOptions.generateReportCount;
-import static com.reports.reportmaker.GenerateReportsOptions.generateReportList;
+import static com.reports.reportmaker.DBHelper.*;
+import static com.reports.reportmaker.GenerateReportsOptions.*;
+import static com.reports.reportmaker.SaveToCsvFile.saveFileFromResultSet;
 
 /**
  * Main
  */
-@SpringBootApplication
+//@SpringBootApplication
 public class ReportsGenerator {
 
     public static void main(String[] args) {
-        SpringApplication.run(ReportsGenerator.class, args);
+        //SpringApplication.run(ReportsGenerator.class, args);
 
-        //public static void main(String[] args) {
-
-
-        DBHelper.openDBConnection();
-        DBHelper.createTable();
+        openDBConnection();
+        createTable();
+        ReadFile dataReader = new ReadFile();
 
         System.out.println("There are " + args.length + " files to load\n");
 
@@ -31,11 +27,11 @@ public class ReportsGenerator {
                 System.out.print("Loading file: " + arg + "\n");
                 switch (FilenameUtils.getExtension(arg)) {
                     case "xml":
-                        insertData(ReadFileXML.readData(arg));
+                        insertData(dataReader.readDataFromXML(arg));
                         //saveData
                         break;
                     case "csv":
-                        insertData(ReadFileCSV.readData(arg));
+                        insertData(dataReader.readDataFromCSV(arg));
                         break;
                     default:
                         System.out.println("Wrong file format - expected .csv or .xml");
@@ -45,32 +41,43 @@ public class ReportsGenerator {
 
             //run user menu and get selected item
             int userChoice = UserMenu.menu();
-
+            String query;
             //take the user's choice
             switch (userChoice) {
                 case 1:
-                    generateReportCount(false, "COUNT", "id");
+                    query = generateQuery(false, "COUNT", "id");
+                    showData(getData(query));
+                    saveFileFromResultSet(getData(query));
+                    //generateReportCount(false, "COUNT", "id");
                     break;
                 case 2:
-                    generateReportCount(true, "COUNT", "id");
+                    query = generateQuery(true, "COUNT", "id");
+                    showData(getData(query));
                     break;
                 case 3:
-                    generateReportCount(false, "SUM", "price");
+                    query = generateQuery(false, "SUM", "price");
+                    showData(getData(query));
                     break;
                 case 4:
-                    generateReportCount(true, "SUM", "price");
+                    query = generateQuery(true, "SUM", "price");
+                    showData(getData(query));
                     break;
                 case 5:
-                    generateReportList(false);
+                    query = generateQuery(false);
+                    showData(getData(query));
+                    saveFileFromResultSet(getData(query));
                     break;
                 case 6:
-                    generateReportList(true);
+                    query = generateQuery(true);
+                    showData(getData(query));
                     break;
                 case 7:
-                    generateReportCount(false, "AVG", "price");
+                    query = generateQuery(false, "AVG", "price");
+                    showData(getData(query));
                     break;
                 case 8:
-                    generateReportCount(true, "SUM", "price");
+                    query = generateQuery(true, "SUM", "price");
+                    showData(getData(query));
                     break;
                 default:
                     System.out.println("There is no such option on the menu");
@@ -78,6 +85,6 @@ public class ReportsGenerator {
         }
 
         //close DB and clear environment
-        DBHelper.closeDB();
+        closeDB();
     }
 }

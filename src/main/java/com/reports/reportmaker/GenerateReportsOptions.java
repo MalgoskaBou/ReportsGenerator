@@ -1,44 +1,71 @@
 package com.reports.reportmaker;
 
 import java.sql.ResultSet;
-
-import static com.reports.reportmaker.DBHelper.getDataByQueryFunction;
-import static com.reports.reportmaker.DBHelper.getDataByQuery;
-import static com.reports.reportmaker.SaveToCsvFile.*;
+import java.sql.ResultSetMetaData;
 import static com.reports.reportmaker.UserMenu.getCustomerIdentifier;
 
-//todo reformat
 class GenerateReportsOptions {
 
+    /**
+     * Generate query with function
+     *
+     * @param customerIdentifierFilter if need custom ID filter
+     * @param typeOfCount              type of function (SUM, COUNT, AVG)
+     * @param columnId                 column on which operations will be performed
+     * @return query as a String
+     */
+    static String generateQuery(Boolean customerIdentifierFilter, String typeOfCount, String columnId) {
+        String query = "SELECT " + typeOfCount + " (" + columnId + ") AS " + columnId + " FROM RAPPORTS";
 
-    static void generateReportList(Boolean customerIdentifierFilter) {
+        if (customerIdentifierFilter) {
+            String customerIdentifier = getCustomerIdentifier();
+            query = query + " WHERE clientId='" + customerIdentifier + "'";
+        }
+        return query;
+    }
+
+    /**
+     * Generate query for whole columns
+     *
+     * @param customerIdentifierFilter if need custom ID filter
+     * @return query as a String
+     */
+    static String generateQuery(Boolean customerIdentifierFilter) {
         String query = "SELECT * FROM RAPPORTS";
         if (customerIdentifierFilter) {
             String customerIdentifier = getCustomerIdentifier();
             query = query + " WHERE clientId='" + customerIdentifier + "'";
         }
-        ResultSet rs = getDataByQuery(query);
-        saveFileFromResultSet(rs);
-    }
-
-    static void generateReportCount(Boolean customerIdentifierFilter, String typeOfCount, String columnId) {
-        String query = "SELECT " + typeOfCount + " (" + columnId + ") AS " + columnId + " FROM RAPPORTS";
-        String reportName = "The " + typeOfCount + " of the " + columnId + " of all orders:";
-
-        if (customerIdentifierFilter) {
-            String customerIdentifier = getCustomerIdentifier();
-            query = query + " WHERE clientId='" + customerIdentifier + "'";
-            reportName = reportName + " where clientID is - " + customerIdentifier;
-        }
-        String res = getDataByQueryFunction(query, columnId);
-        saveFileWithASingleValue(String.valueOf(res), reportName);
+        return query;
     }
 
     static void showData(ResultSet rs) {
         try {
+
+            //reset cursor for any case
+            rs.beforeFirst();
+
+            //get number of columns from metadata
+            ResultSetMetaData metaDataRs = rs.getMetaData();
+            int numberOfColumns = metaDataRs.getColumnCount();
+
+            //show headers
+            for (int i = 0; i < numberOfColumns; ++i) {
+
+                System.out.print(metaDataRs.getColumnName(i + 1) + ", ");
+            }
+            System.out.println();
+
+            //show data
             while (rs.next()) {
 
+                for (int i = 0; i < numberOfColumns; ++i) {
+
+                    System.out.print(rs.getString(i + 1) + ", ");
+                }
+                System.out.println();
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
