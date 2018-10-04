@@ -9,14 +9,24 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import static com.reports.reportmaker.UserMenu.getCustomerIdentifier;
+import static com.reports.reportmaker.UserMenu.menuGetCustomerIdentifier;
 
 /**
- * Generates a report to display or save to a file
+ * Generates queries to obtain data to report and display data, save to a file or both
  */
 class GenerateReportsOptions {
 
+    /**
+     * Generates data depending on the selected option
+     *
+     * @param rs       ResultSet with input data
+     * @param saveFile select the truth if you want to save the data to a file
+     * @param showData select the truth if you want to show data on the screen
+     */
     static void generateReport(ResultSet rs, Boolean saveFile, Boolean showData) {
+        //todo boolean depend from user choice!
+
+
         if (saveFile && !showData)
             saveFile(rs);
 
@@ -32,9 +42,9 @@ class GenerateReportsOptions {
      */
 
     /**
-     * Generate query with function
+     * Generate query with SQL function
      *
-     * @param customerIdentifierFilter if need custom ID filter
+     * @param customerIdentifierFilter if need custom ID filter - info from {@link UserMenu#menuGetCustomerIdentifier()}
      * @param typeOfCount              type of function (SUM, COUNT, AVG)
      * @param columnId                 column on which operations will be performed
      * @return query as a String
@@ -43,7 +53,7 @@ class GenerateReportsOptions {
         String query = "SELECT " + typeOfCount + " (" + columnId + ") AS " + columnId + " FROM RAPPORTS";
 
         if (customerIdentifierFilter) {
-            String customerIdentifier = getCustomerIdentifier();
+            String customerIdentifier = menuGetCustomerIdentifier();
             query = query + " WHERE clientId='" + customerIdentifier + "'";
         }
         return query;
@@ -52,13 +62,13 @@ class GenerateReportsOptions {
     /**
      * Generate query for whole columns
      *
-     * @param customerIdentifierFilter if need custom ID filter
+     * @param customerIdentifierFilter if need custom ID filter - info from {@link UserMenu#menuGetCustomerIdentifier()}
      * @return query as a String
      */
     static String generateQuery(Boolean customerIdentifierFilter) {
         String query = "SELECT * FROM RAPPORTS";
         if (customerIdentifierFilter) {
-            String customerIdentifier = getCustomerIdentifier();
+            String customerIdentifier = menuGetCustomerIdentifier();
             query = query + " WHERE clientId='" + customerIdentifier + "'";
         }
         return query;

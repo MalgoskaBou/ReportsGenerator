@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * functions manipulating the database
+ * functions for manipulating the database
  */
 class DBHelper {
 

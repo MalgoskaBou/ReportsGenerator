@@ -38,15 +38,15 @@ public class ReportsGenerator {
                 }
             }
 
-            //run user menu and get selected item
-            int userChoice = UserMenu.menu();
+
+            //run user menuMain and get selected item
+            int userChoice = UserMenu.menuMain();
             String query;
             //take the user's choice
             switch (userChoice) {
                 case 1:
                     query = generateQuery(false, "COUNT", "id");
                     generateReport(getData(query), true, true);
-                    //generateReportCount(false, "COUNT", "id");
                     break;
                 case 2:
                     query = generateQuery(true, "COUNT", "id");
@@ -74,11 +74,13 @@ public class ReportsGenerator {
                     generateReport(getData(query), true, true);
                     break;
                 case 8:
-                    query = generateQuery(true, "SUM", "price");
+                    query = generateQuery(true, "AVG", "price");
                     generateReport(getData(query), true, true);
                     break;
-                default:
-                    System.out.println("There is no such option on the menu");
+                case 9:
+                    //do nothing - just waiting for close the database
+                    break;
+
             }
         }
 

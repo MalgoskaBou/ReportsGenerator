@@ -21,7 +21,7 @@ class DataModel {
      * @param requestID request ID (long)
      * @param name      name of client (String - no longer than 255 chars)
      * @param quantity  quantity of product (int)
-     * @param price     price of product (double)
+     * @param price     price of product (BigDecimal) - cash values
      */
     DataModel(String clientID, long requestID, String name, int quantity, BigDecimal price) {
         this.clientID = clientID;
