@@ -1,5 +1,6 @@
 package com.reports.reportmaker;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static com.reports.reportmaker.ConstDataClass.MAX_CHAR_IN_USER_ID;
@@ -12,6 +13,7 @@ import static com.reports.reportmaker.ConstDataClass.MAX_CHOICES_IN_REPORT_GENER
 final class UserMenu {
 
     //todo -> InputMismatchException
+
     /**
      * Private constructor.
      */
@@ -43,7 +45,7 @@ final class UserMenu {
         System.out.print("Choose report to generate by entering a number from the menuMain: ");
 
         int choice = getIntChoice();
-        while (choice > MAX_CHOICES_IN_MAIN_MENU) {
+        while (choice > MAX_CHOICES_IN_MAIN_MENU || choice <= 0) {
             System.out.print("There is no such option! Try one more time or choose 9 to exit: ");
             choice = getIntChoice();
         }
@@ -53,6 +55,7 @@ final class UserMenu {
 
     /**
      * additional information about customer ID.
+     *
      * @return selected customer ID by user (String)
      */
     static String menuGetCustomerIdentifier() {
@@ -104,9 +107,13 @@ final class UserMenu {
      * @return user choice in int
      */
     private static int getIntChoice() {
-        int selection;
+        int selection = 0;
         Scanner input = new Scanner(System.in);
-        selection = input.nextInt();
+        try {
+            selection = input.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.print("Only integers, ");
+        }
         return selection;
     }
 }
