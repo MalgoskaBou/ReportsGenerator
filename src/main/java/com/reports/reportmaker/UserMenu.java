@@ -82,7 +82,7 @@ final class UserMenu {
         System.out.println("3 - Save to file and show");
 
         int choice = getIntChoice();
-        while (choice > MAX_CHOICES_IN_REPORT_GENERATE_MENU) {
+        while (choice > MAX_CHOICES_IN_REPORT_GENERATE_MENU || choice <= 0) {
             System.out.print("There is no such option! Try one more time: ");
             choice = getIntChoice();
         }
