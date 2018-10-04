@@ -53,11 +53,13 @@ final class ReadFile {
     private static ArrayList<DataModel> listOfDataFromFile = new ArrayList<>();
 
     /**
-     * Processes and validates data from a file to an object that is ready to write to the database.
+     * Processes and validates data from a file to an
+     * object that is ready to write to the database.
      * (For CSV files)
      *
      * @param file file patch
-     * @return list of {@link DataModel} objects which represent individual rows of the database
+     * @return list of {@link DataModel} objects
+     * which represent individual rows of the database
      */
     static ArrayList<DataModel> readDataFromCSV(final String file) {
 
@@ -105,7 +107,8 @@ final class ReadFile {
      * object that is ready to write to the database.
      *(For XML files)
      * @param file file patch
-     * @return list of {@link DataModel} objects which represent individual rows of the database
+     * @return list of {@link DataModel} objects
+     * which represent individual rows of the database
      */
     static ArrayList<DataModel> readDataFromXML(final String file) {
 

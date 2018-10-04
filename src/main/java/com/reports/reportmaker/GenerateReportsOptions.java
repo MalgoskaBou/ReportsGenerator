@@ -65,7 +65,9 @@ final class GenerateReportsOptions {
      * @param columnId                 column on which operations will be performed
      * @return query as a String
      */
-    static String generateQuery(final Boolean customerIdentifierFilter, final String typeOfCount, final String columnId) {
+    static String generateQuery(final Boolean customerIdentifierFilter,
+                                final String typeOfCount,
+                                final String columnId) {
         String query = "SELECT " + typeOfCount + " (" + columnId + ") AS " + columnId + " FROM RAPPORTS";
 
         if (customerIdentifierFilter) {
