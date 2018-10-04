@@ -3,19 +3,34 @@ package com.reports.reportmaker;
 import java.math.BigDecimal;
 
 /**
- * Represents one row in the database
+ * Represents one row in the database.
  * - returned by {@link DataLineObj#validateData()}
  */
 class DataModel {
 
+    /**
+     * Client ID.
+     */
     private String clientID;
+    /**
+     * Request ID.
+     */
     private long requestID;
+    /**
+     * Name of client.
+     */
     private String name;
+    /**
+     * Quantity of product.
+     */
     private int quantity;
+    /**
+     * Price of product.
+     */
     private BigDecimal price;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param clientID  client ID (String - no spaces and no more than 6 chars)
      * @param requestID request ID (long)
@@ -23,7 +38,7 @@ class DataModel {
      * @param quantity  quantity of product (int)
      * @param price     price of product (BigDecimal) - cash values
      */
-    DataModel(String clientID, long requestID, String name, int quantity, BigDecimal price) {
+    DataModel(final String clientID, final long requestID, final String name, final int quantity, final BigDecimal price) {
         this.clientID = clientID;
         this.requestID = requestID;
         this.name = name;

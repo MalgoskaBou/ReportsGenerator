@@ -10,30 +10,46 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-
 import static com.reports.reportmaker.ConstDataClass.*;
 
-/**
- * the class responsible for reading information from files
- */
-class ReadFile {
 
+/**
+ * the class responsible for reading information from files.
+ */
+final class ReadFile {
+
+    /**
+     * Private constructor.
+     */
+    private ReadFile() {
+        // do nothing
+        // This prevents the default parameter-less
+        // constructor from being used elsewhere in your code.
+    }
+
+    /**
+     * {@link DataLineObj}.
+     */
     private static DataLineObj dataLine;
+    /**
+     * {@link DataModel}.
+     */
     private static ArrayList<DataModel> listOfDataFromFile = new ArrayList<>();
 
     /**
-     * Processes and validates data from a file to an object that is ready to write to the database
+     * Processes and validates data from a file to an object that is ready to write to the database.
      * (For CSV files)
      *
      * @param file file patch
      * @return list of {@link DataModel} objects which represent individual rows of the database
      */
-    static ArrayList<DataModel> readDataFromCSV(String file) {
+    static ArrayList<DataModel> readDataFromCSV(final String file) {
 
         listOfDataFromFile.clear();
         try {
@@ -75,12 +91,12 @@ class ReadFile {
     }
 
     /**
-     * Processes and validates data from a file to an object that is ready to write to the database
+     * Processes and validates data from a file to an object that is ready to write to the database.
      *(For XML files)
      * @param file file patch
      * @return list of {@link DataModel} objects which represent individual rows of the database
      */
-    static ArrayList<DataModel> readDataFromXML(String file) {
+    static ArrayList<DataModel> readDataFromXML(final String file) {
 
         File inputFile = new File(file);
         listOfDataFromFile.clear();
@@ -102,11 +118,11 @@ class ReadFile {
                     Element eElement = (Element) nNode;
 
                     //checking if there is no missing elements
-                    if ((eElement.getElementsByTagName(CLIENT_ID).item(0)) == null ||
-                            (eElement.getElementsByTagName(REQUEST_ID).item(0)) == null ||
-                            (eElement.getElementsByTagName(NAME).item(0)) == null ||
-                            (eElement.getElementsByTagName(QUANTITY).item(0)) == null ||
-                            (eElement.getElementsByTagName(PRICE).item(0)) == null) {
+                    if ((eElement.getElementsByTagName(CLIENT_ID).item(0)) == null
+                            || (eElement.getElementsByTagName(REQUEST_ID).item(0)) == null
+                            || (eElement.getElementsByTagName(NAME).item(0)) == null
+                            || (eElement.getElementsByTagName(QUANTITY).item(0)) == null
+                            || (eElement.getElementsByTagName(PRICE).item(0)) == null) {
                         System.out.println("Missing one or more elements in: " + errorIdent);
 
                     } else {

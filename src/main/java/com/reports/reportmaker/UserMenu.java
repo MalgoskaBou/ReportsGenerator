@@ -3,12 +3,21 @@ package com.reports.reportmaker;
 import java.util.Scanner;
 
 /**
- * menuMain support in the console
+ * menuMain support in the console.
  */
-class UserMenu {
+final class UserMenu {
 
     /**
-     * Main menuMain
+     * Private constructor.
+     */
+    private UserMenu() {
+        // do nothing
+        // This prevents the default parameter-less
+        // constructor from being used elsewhere in your code.
+    }
+
+    /**
+     * Main menuMain.
      *
      * @return selected value by the user (int)
      */
@@ -29,7 +38,7 @@ class UserMenu {
         System.out.print("Choose report to generate by entering a number from the menuMain: ");
 
         int choice = getIntChoice();
-        while (choice > 9) {
+        while (choice > ConstDataClass.MAX_CHOICES_IN_MAIN_MENU) {
             System.out.print("There is no such option! Try one more time or choose 9 to exit: ");
             choice = getIntChoice();
         }
@@ -38,7 +47,7 @@ class UserMenu {
     }
 
     /**
-     * additional information about customer ID
+     * additional information about customer ID.
      * @return selected customer ID by user (String)
      */
     static String menuGetCustomerIdentifier() {
@@ -46,7 +55,7 @@ class UserMenu {
         System.out.println("Choose client identifier: ");
 
         String choice = getStringChoice();
-        while (choice.length() > 6 || choice.contains(" ")) {
+        while (choice.length() > ConstDataClass.MAX_CHAR_IN_USER_ID || choice.contains(" ")) {
             System.out.print("Customer ID can have only 6 chars without spaces");
             choice = getStringChoice();
         }
@@ -54,7 +63,7 @@ class UserMenu {
     }
 
     /**
-     * additional information about report to generate
+     * additional information about report to generate.
      *
      * @return selected option in menu (int)
      */
@@ -65,13 +74,18 @@ class UserMenu {
         System.out.println("3 - Save to file and show");
 
         int choice = getIntChoice();
-        while (choice > 3) {
+        while (choice > ConstDataClass.MAX_CHOICES_IN_REPORT_GENERATE_MENU) {
             System.out.print("There is no such option! Try one more time: ");
             choice = getIntChoice();
         }
         return choice;
     }
 
+    /**
+     * Get user choice in String.
+     *
+     * @return user choice in string
+     */
     private static String getStringChoice() {
         String selection;
         Scanner input = new Scanner(System.in);
@@ -79,6 +93,11 @@ class UserMenu {
         return selection;
     }
 
+    /**
+     * Get user choice in int.
+     *
+     * @return user choice in int
+     */
     private static int getIntChoice() {
         int selection;
         Scanner input = new Scanner(System.in);

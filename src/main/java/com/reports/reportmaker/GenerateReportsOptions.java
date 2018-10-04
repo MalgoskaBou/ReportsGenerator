@@ -12,29 +12,42 @@ import java.sql.SQLException;
 import static com.reports.reportmaker.UserMenu.menuGetCustomerIdentifier;
 
 /**
- * Generates queries to obtain data to report and display data, save to a file or both
+ * Generates queries to obtain data to report
+ * and display data, save to a file or both.
  */
-class GenerateReportsOptions {
+final class GenerateReportsOptions {
 
     /**
-     * Generates data depending on the selected option
+     * Private constructor.
+     */
+    private GenerateReportsOptions() {
+        //do nothing
+        //This prevents the default parameter-less constructor
+        //from being used elsewhere in your code.
+    }
+
+    /**
+     * Generates data depending on the selected option.
      *
      * @param rs       ResultSet with input data
      * @param saveFile select the truth if you want to save the data to a file
      * @param showData select the truth if you want to show data on the screen
      */
-    static void generateReport(ResultSet rs, Boolean saveFile, Boolean showData) {
+    static void generateReport(final ResultSet rs, final Boolean saveFile, final Boolean showData) {
         //todo boolean depend from user choice!
 
 
-        if (saveFile && !showData)
+        if (saveFile && !showData) {
             saveFile(rs);
+        }
 
-        if (showData && !saveFile)
+        if (showData && !saveFile) {
             showData(rs);
+        }
 
-        if (showData || saveFile)
+        if (showData || saveFile) {
             saveFileAndSHowData(rs);
+        }
     }
 
     /*
@@ -42,14 +55,15 @@ class GenerateReportsOptions {
      */
 
     /**
-     * Generate query with SQL function
+     * Generate query with SQL function.
      *
-     * @param customerIdentifierFilter if need custom ID filter - info from {@link UserMenu#menuGetCustomerIdentifier()}
+     * @param customerIdentifierFilter if need custom ID filter
+     *                                 -info from {@link UserMenu#menuGetCustomerIdentifier()}
      * @param typeOfCount              type of function (SUM, COUNT, AVG)
      * @param columnId                 column on which operations will be performed
      * @return query as a String
      */
-    static String generateQuery(Boolean customerIdentifierFilter, String typeOfCount, String columnId) {
+    static String generateQuery(final Boolean customerIdentifierFilter, final String typeOfCount, final String columnId) {
         String query = "SELECT " + typeOfCount + " (" + columnId + ") AS " + columnId + " FROM RAPPORTS";
 
         if (customerIdentifierFilter) {
@@ -60,12 +74,12 @@ class GenerateReportsOptions {
     }
 
     /**
-     * Generate query for whole columns
+     * Generate query for whole columns.
      *
      * @param customerIdentifierFilter if need custom ID filter - info from {@link UserMenu#menuGetCustomerIdentifier()}
      * @return query as a String
      */
-    static String generateQuery(Boolean customerIdentifierFilter) {
+    static String generateQuery(final Boolean customerIdentifierFilter) {
         String query = "SELECT * FROM RAPPORTS";
         if (customerIdentifierFilter) {
             String customerIdentifier = menuGetCustomerIdentifier();
@@ -79,11 +93,11 @@ class GenerateReportsOptions {
      */
 
     /**
-     * Writes the data on the screen from ResultSet
+     * Writes the data on the screen from ResultSet.
      *
      * @param rs gets the ResultSet with data returned by {@link DBHelper#getData(String)}
      */
-    private static void showData(ResultSet rs) {
+    private static void showData(final ResultSet rs) {
         try {
 
             //reset cursor for any case
@@ -116,11 +130,11 @@ class GenerateReportsOptions {
     }
 
     /**
-     * Save a csv file with data from ResultSet with columns headers
+     * Save a csv file with data from ResultSet with columns headers.
      *
      * @param rs gets the ResultSet with data returned by {@link DBHelper#getData(String)}
      */
-    private static void saveFile(ResultSet rs) {
+    private static void saveFile(final ResultSet rs) {
 
         try {
             //cursor reset
@@ -166,11 +180,11 @@ class GenerateReportsOptions {
     }
 
     /**
-     * Save a csv file and show whole data from ResultSet with columns headers
+     * Save a csv file and show whole data from ResultSet with columns headers.
      *
      * @param rs gets the ResultSet with data returned by {@link DBHelper#getData(String)}
      */
-    private static void saveFileAndSHowData(ResultSet rs) {
+    private static void saveFileAndSHowData(final ResultSet rs) {
 
         try {
             //cursor reset

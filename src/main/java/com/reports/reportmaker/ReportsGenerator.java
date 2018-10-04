@@ -7,11 +7,25 @@ import static com.reports.reportmaker.GenerateReportsOptions.*;
 import static com.reports.reportmaker.ReadFile.*;
 
 /**
- * Main
+ * Main.
  */
 //@SpringBootApplication
-public class ReportsGenerator {
+final class ReportsGenerator {
 
+    /**
+     * Private constructor.
+     */
+    private ReportsGenerator() {
+        // do nothing
+        // This prevents the default parameter-less
+        // constructor from being used elsewhere in your code.
+    }
+
+    /**
+     * Main class.
+     *
+     * @param args arguments for class
+     */
     public static void main(String[] args) {
         //SpringApplication.run(ReportsGenerator.class, args);
 
@@ -79,6 +93,8 @@ public class ReportsGenerator {
                     break;
                 case 9:
                     //do nothing - just waiting for close the database
+                    break;
+                default: //do nothing
                     break;
 
             }
