@@ -1,39 +1,89 @@
 package com.reports.reportmaker;
 
+import java.math.BigDecimal;
+
+/**
+ * Represents one row in the database.
+ * - returned by {@link DataLineObj#validateData()}
+ */
 class DataModel {
 
-    private String clientID;
-    private String requestID;
-    private String name;
-    private String quantity;
-    private String price;
+    /**
+     * Client ID.
+     */
+    private String mClientID;
+    /**
+     * Request ID.
+     */
+    private long mRequestID;
+    /**
+     * Name of client.
+     */
+    private String mName;
+    /**
+     * Quantity of product.
+     */
+    private int mQuantity;
+    /**
+     * Price of product.
+     */
+    private BigDecimal mPrice;
 
+    /**
+     * Constructor.
+     *
+     * @param clientID  client ID (String - no spaces and no more than 6 chars)
+     * @param requestID request ID (long)
+     * @param name      mName of client (String - no longer than 255 chars)
+     * @param quantity  mQuantity of product (int)
+     * @param price     mPrice of product (BigDecimal) - cash values
+     */
+    DataModel(final String clientID,
+              final long requestID,
+              final String name,
+              final int quantity,
+              final BigDecimal price) {
 
-    DataModel(String clientID, String requestID, String name, String quantity, String price) {
-        this.clientID = clientID;
-        this.requestID = requestID;
-        this.name = name;
-        this.quantity = quantity;
-        this.price = price;
+        mClientID = clientID;
+        mRequestID = requestID;
+        mName = name;
+        mQuantity = quantity;
+        mPrice = price;
     }
 
-    String getClientID() {
-        return clientID;
+    /**
+     * @return clinet ID
+     */
+    String getmClientID() {
+        return mClientID;
     }
 
-    String getRequestID() {
-        return requestID;
+    /**
+     * @return request ID
+     */
+    long getmRequestID() {
+        return mRequestID;
     }
 
-    String getName() {
-        return name;
+    /**
+     * @return mName od client
+     */
+    String getmName() {
+        return mName;
     }
 
-    String getQuantity() {
-        return quantity;
+    /**
+     * @return mQuantity of product
+     */
+    int getmQuantity() {
+        return mQuantity;
     }
 
-    String getPrice() {
-        return price;
+    /**
+     * @return mPrice of product
+     */
+    BigDecimal getmPrice() {
+        return mPrice;
     }
+
 }

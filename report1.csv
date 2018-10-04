@@ -1,7 +1,7 @@
 ﻿Client_Id,Request_id,Name,Quantity,Price
-5671,2,Chleb,5,15.00
-1,1,Test data,2,15.09
-1,1,Bułka,1,10.00
-1,1,Chleb,2,15.00
 1,2,Chleb,5,15.00
-2,1,Chleb,1,10.00
+2,1,Test decimal,2,15.009
+3,1,Bułka,1,10.00
+4,1,second test,2,15.00
+5,2,Chleb,5,15.00
+6,1,Chleb,1,10.00

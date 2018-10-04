@@ -1,21 +1,42 @@
 package com.reports.reportmaker;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-class DBHelper {
-
-    private static Connection conn = null;
-    private static Statement stmt = null;
-    private static ResultSet rs = null;
-
+/**
+ * functions for manipulating the database.
+ */
+final class DBHelper {
 
     /**
-     * CREATE DB
+     * {@link Connection}.
      */
+    private static Connection conn = null;
+    /**
+     * {@link Statement}.
+     */
+    private static Statement stmt = null;
+    /**
+     * {@link ResultSet}.
+     */
+    private static ResultSet rs = null;
 
-    /*
-     * OPEN DATA-BASE CONNECTION
-     * */
+    /**
+     * Private constructor.
+     */
+    private DBHelper() {
+        // do nothing
+        // This prevents the default parameter-less
+        // constructor from being used elsewhere in your code.
+    }
+
+    /**
+     * OPEN DATABASE CONNECTION.
+     */
     static void openDBConnection() {
 
         try {
@@ -23,9 +44,11 @@ class DBHelper {
             Class.forName(ConstDataClass.JDBC_DRIVER);
 
             // Open a connection
-            conn = DriverManager.getConnection(ConstDataClass.DB_URL, ConstDataClass.USER, ConstDataClass.PASS);
+            conn = DriverManager.getConnection(ConstDataClass.DB_URL,
+                    ConstDataClass.USER, ConstDataClass.PASS);
             System.out.println("Connected database successfully...");
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
 
         } catch (ClassNotFoundException | SQLException e) {
             // Handle errors for Class.forName
@@ -33,21 +56,21 @@ class DBHelper {
         }
     }
 
-    /*
-     * CREATE A TABLE WITH A MANDATORY FIELDS
-     * */
+    /**
+     * CREATE A TABLE WITH A MANDATORY FIELDS.
+     */
     static void createTable() {
         try {
 
             // Create table with the necessary columns
-            String sqlCreate = "CREATE TABLE   RAPPORTS " +
-                    "(id INTEGER not NULL AUTO_INCREMENT, " +
-                    " clientId VARCHAR(6) not NULL, " +
-                    " requestId LONG not NULL, " +
-                    " name VARCHAR(255) not NULL, " +
-                    " quantity INTEGER not NULL, " +
-                    " price DOUBLE not NULL, " +
-                    " PRIMARY KEY ( id ))";
+            String sqlCreate = "CREATE TABLE   RAPPORTS "
+                    + "(id INTEGER not NULL AUTO_INCREMENT, "
+                    + " clientId VARCHAR(6) not NULL, "
+                    + " requestId LONG not NULL, "
+                    + " name VARCHAR(255) not NULL, "
+                    + " quantity INTEGER not NULL, "
+                    + " price DECIMAL(7 , 2 ) not NULL, "
+                    + " PRIMARY KEY ( id ))";
             stmt.executeUpdate(sqlCreate);
 
             System.out.println("Created table in given database...");
@@ -57,62 +80,52 @@ class DBHelper {
         }
     }
 
-    /*
-     * FUNCTION RESPONSIBLE FOR INSErt DATA TO DATABASE
-     * */
-    private static void insertData(String clientId, long requestId, String name, int quantity, double price) {
+    /**
+     * FUNCTION RESPONSIBLE FOR INSErt DATA TO DATABASE.
+     *
+     * @param dataModels ArrayList of {@link DataModel}
+     */
+    static void insertData(final ArrayList<DataModel> dataModels) {
         // Insert data query
-        String sqlInsert = "INSERT INTO RAPPORTS " + "VALUES (default, '" +
-                clientId + "', " +
-                requestId + ", '" +
-                name + "', " +
-                quantity + ", " +
-                price + ")";
+
+        if (dataModels.size() > 0) {
+            for (DataModel datamodel : dataModels) {
+
+                String sqlInsert = "INSERT INTO RAPPORTS "
+                        + "VALUES (default, '"
+                        + datamodel.getmClientID() + "', "
+                        + datamodel.getmRequestID() + ", '"
+                        + datamodel.getmName() + "', "
+                        + datamodel.getmQuantity() + ", "
+                        + datamodel.getmPrice() + ")";
+                try {
+                    stmt.executeUpdate(sqlInsert);
+                } catch (SQLException e) {
+                    // Handle errors for executeUpdate
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * Get data from database by query.
+     *
+     * @param query query to the database
+     * @return ResultSet object with data
+     */
+    static ResultSet getData(final String query) {
         try {
-            stmt.executeUpdate(sqlInsert);
+            rs = stmt.executeQuery(query);
         } catch (SQLException e) {
-            // Handle errors for executeUpdate
             e.printStackTrace();
         }
+        return rs;
     }
 
-    /*
-     * Checks whether the data is correct and saves it using the function @insertData
-     * */
-    static void checkCorrectDataAndSafe(DataModel object, String errorIdentif) {
-
-        try {
-            //parse strings to correct formats and delete white-spaces from clientID
-            String clientID = object.getClientID().replaceAll("\\s", "");
-            long requestID = Long.parseLong(object.getRequestID());
-            int quantity = Integer.parseInt(object.getQuantity());
-
-            //makes sure that the entry price has 2 decimal places - I use ROUND_HALF_UP!!!
-            double price = Double.parseDouble(object.getPrice());
-            price = Math.round(price * 100) / 100D;
-
-
-            //checking if these values are within the varchar range
-            if (clientID.length() > 6) {
-                throw new Exception("too long clientID");
-            }
-            if (object.getName().length() > 255) {
-                throw new Exception("too long name of product");
-            }
-
-            // save data in database with insertData function
-            insertData(clientID, requestID, object.getName(), quantity, price);
-
-        } catch (Exception e) {
-            //throw parse exception for wrong format data, and too long value in varChar
-            System.out.println(object.getRequestID() + " probably wrong data format in: " + errorIdentif);
-            e.printStackTrace();
-        }
-    }
-
-    /*
-     *CLOSING DATABASE CONNECTION AND CLEAN UP ENVIRONMENT
-     * */
+    /**
+     * CLOSE DATABASE.
+     */
     static void closeDB() {
         try {
             stmt.close();
@@ -124,59 +137,5 @@ class DBHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * SHOW DATA
-     */
-
-    //LISTS
-    static ResultSet showWholeData(String query) {
-
-        try {
-            rs = stmt.executeQuery(query);
-
-            while (rs.next()) {
-                // Retrieve by column name
-                int id = rs.getInt("id");
-                String clientId = rs.getString("clientId");
-                long requestId = rs.getLong("requestId");
-                String name = rs.getString("name");
-                int quantity = rs.getInt("quantity");
-                double price = rs.getDouble("price");
-
-                // Display values
-                System.out.print("ID: " + id + "\t");
-                System.out.print(", clientId: " + clientId + "\t");
-                System.out.print(", requestId: " + requestId + "\t");
-                System.out.print(", name: " + name + "\t");
-                System.out.print(", quantity: " + quantity + "\t");
-                System.out.print(", price: " + String.format("%.2f", price) + "\n");
-
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return rs;
-    }
-
-    //CALCULATIONS
-    static double showCalculateData(String query, String columnLabel) {
-
-        //ResultSet rs;
-        double result = 0;
-        try {
-            rs = stmt.executeQuery(query);
-            rs.next();
-            result = rs.getDouble(columnLabel);
-
-            // Display value
-            System.out.println(result);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
     }
 }
