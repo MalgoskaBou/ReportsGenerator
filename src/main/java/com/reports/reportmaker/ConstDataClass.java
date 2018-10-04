@@ -127,6 +127,21 @@ final class ConstDataClass {
     static final int UM_EXIT = 9;
 
     /**
+     * User menu - generate report - save file.
+     */
+    static final int UM_GR_SAVE_FILE = 1;
+
+    /**
+     * User menu - generate report - show data.
+     */
+    static final int UM_GR_SHOW_DATA = 2;
+
+    /**
+     * User menu - generate report - save file adn show data.
+     */
+    static final int UM_GR_SAVE_FILE_AND_SHOW_DATA = 3;
+
+    /**
      * CSV file column - customer id.
      */
     static final int CSV_CUSTOMER_ID = 0;

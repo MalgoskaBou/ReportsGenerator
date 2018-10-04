@@ -2,11 +2,16 @@ package com.reports.reportmaker;
 
 import java.util.Scanner;
 
+import static com.reports.reportmaker.ConstDataClass.MAX_CHAR_IN_USER_ID;
+import static com.reports.reportmaker.ConstDataClass.MAX_CHOICES_IN_MAIN_MENU;
+import static com.reports.reportmaker.ConstDataClass.MAX_CHOICES_IN_REPORT_GENERATE_MENU;
+
 /**
  * menuMain support in the console.
  */
 final class UserMenu {
 
+    //todo -> InputMismatchException
     /**
      * Private constructor.
      */
@@ -38,7 +43,7 @@ final class UserMenu {
         System.out.print("Choose report to generate by entering a number from the menuMain: ");
 
         int choice = getIntChoice();
-        while (choice > ConstDataClass.MAX_CHOICES_IN_MAIN_MENU) {
+        while (choice > MAX_CHOICES_IN_MAIN_MENU) {
             System.out.print("There is no such option! Try one more time or choose 9 to exit: ");
             choice = getIntChoice();
         }
@@ -55,7 +60,7 @@ final class UserMenu {
         System.out.println("Choose client identifier: ");
 
         String choice = getStringChoice();
-        while (choice.length() > ConstDataClass.MAX_CHAR_IN_USER_ID || choice.contains(" ")) {
+        while (choice.length() > MAX_CHAR_IN_USER_ID || choice.contains(" ")) {
             System.out.print("Customer ID can have only 6 chars without spaces");
             choice = getStringChoice();
         }
@@ -74,7 +79,7 @@ final class UserMenu {
         System.out.println("3 - Save to file and show");
 
         int choice = getIntChoice();
-        while (choice > ConstDataClass.MAX_CHOICES_IN_REPORT_GENERATE_MENU) {
+        while (choice > MAX_CHOICES_IN_REPORT_GENERATE_MENU) {
             System.out.print("There is no such option! Try one more time: ");
             choice = getIntChoice();
         }

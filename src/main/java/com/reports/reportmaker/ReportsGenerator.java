@@ -51,6 +51,85 @@ final class ReportsGenerator {
 
         System.out.println("There are " + args.length + " files to load\n");
 
+        //get file patch from arguments and read file
+        checkPassedFiles(args);
+
+        //run user menuMain and get selected item
+        getUserChoice(UserMenu.menuMain());
+
+        //close DB and clear environment
+        closeDB();
+    } // END OF MAIN METHOD
+
+    /**
+     * .
+     *
+     * @param userChoice selection from menu made by the user
+     */
+    private static void getUserChoice(final int userChoice) {
+        String query;
+        //take the user's choice
+        switch (userChoice) {
+            case UM_TOTAL_NUMBER_OF_ORDERS:
+                generateReport(getData(generateQuery(
+                        false,
+                        "COUNT",
+                        "id")));
+                break;
+            case UM_TOTAL_NUMBER_OF_ORDERS_CID:
+                generateReport(getData(generateQuery(
+                        true,
+                        "COUNT",
+                        "id")));
+                break;
+            case UM_TOTAL_AMOUNT_OF_ORDERS:
+                generateReport(getData(generateQuery(
+                        false,
+                        "SUM",
+                        "price")));
+                break;
+            case UM_TOTAL_AMOUNT_OF_ORDERS_CID:
+                generateReport(getData(generateQuery(
+                        true,
+                        "SUM",
+                        "price")));
+                break;
+            case UM_LIST_OF_ALL_ORDERS:
+                generateReport(getData(generateQuery(false)));
+
+                break;
+            case UM_LIST_OF_ALL_ORDERS_CID:
+                generateReport(getData(generateQuery(true)));
+                break;
+            case UM_AVG_ORDERS:
+                generateReport(getData(generateQuery(
+                        false,
+                        "AVG",
+                        "price")));
+                break;
+            case UM_AVG_ORDERS_CID:
+                generateReport(getData(generateQuery(
+                        true,
+                        "AVG",
+                        "price")));
+                break;
+            case UM_EXIT:
+                //do nothing - just waiting for close the database
+                break;
+            default:
+                //do nothing - just waiting for close the database
+                break;
+
+        }
+    }
+
+    /**
+     * Gets paths to files passed in arguments
+     * Reads files and saves the correct data to the database.
+     *
+     * @param args argumets - file paths
+     */
+    private static void checkPassedFiles(final String[] args) {
         if (args.length > 0) {
             //load files
             for (String arg : args) {
@@ -68,56 +147,6 @@ final class ReportsGenerator {
                         break;
                 }
             }
-
-
-            //run user menuMain and get selected item
-            int userChoice = UserMenu.menuMain();
-            String query;
-            //take the user's choice
-            switch (userChoice) {
-                case UM_TOTAL_NUMBER_OF_ORDERS:
-                    query = generateQuery(false, "COUNT", "id");
-                    generateReport(getData(query), true, true);
-                    break;
-                case UM_TOTAL_NUMBER_OF_ORDERS_CID:
-                    query = generateQuery(true, "COUNT", "id");
-                    generateReport(getData(query), true, true);
-                    break;
-                case UM_TOTAL_AMOUNT_OF_ORDERS:
-                    query = generateQuery(false, "SUM", "price");
-                    generateReport(getData(query), true, true);
-                    break;
-                case UM_TOTAL_AMOUNT_OF_ORDERS_CID:
-                    query = generateQuery(true, "SUM", "price");
-                    generateReport(getData(query), true, true);
-                    break;
-                case UM_LIST_OF_ALL_ORDERS:
-                    query = generateQuery(false);
-                    generateReport(getData(query), true, true);
-
-                    break;
-                case UM_LIST_OF_ALL_ORDERS_CID:
-                    query = generateQuery(true);
-                    generateReport(getData(query), true, true);
-                    break;
-                case UM_AVG_ORDERS:
-                    query = generateQuery(false, "AVG", "price");
-                    generateReport(getData(query), true, true);
-                    break;
-                case UM_AVG_ORDERS_CID:
-                    query = generateQuery(true, "AVG", "price");
-                    generateReport(getData(query), true, true);
-                    break;
-                case UM_EXIT:
-                    //do nothing - just waiting for close the database
-                    break;
-                default: //do nothing
-                    break;
-
-            }
         }
-
-        //close DB and clear environment
-        closeDB();
     }
 }

@@ -9,6 +9,10 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import static com.reports.reportmaker.ConstDataClass.UM_GR_SAVE_FILE;
+import static com.reports.reportmaker.ConstDataClass.UM_GR_SAVE_FILE_AND_SHOW_DATA;
+import static com.reports.reportmaker.ConstDataClass.UM_GR_SHOW_DATA;
+import static com.reports.reportmaker.UserMenu.menuGenerateReportOptions;
 import static com.reports.reportmaker.UserMenu.menuGetCustomerIdentifier;
 
 /**
@@ -30,25 +34,18 @@ final class GenerateReportsOptions {
      * Generates data depending on the selected option.
      *
      * @param rs       ResultSet with input data
-     * @param saveFile select the truth if you want to save the data to a file
-     * @param showData select the truth if you want to show data on the screen
      */
-    static void generateReport(final ResultSet rs,
-                               final Boolean saveFile,
-                               final Boolean showData) {
-        //todo boolean depend from user choice!
+    static void generateReport(final ResultSet rs) {
 
-
-        if (saveFile && !showData) {
+        int reportToGenerate = menuGenerateReportOptions();
+        if (reportToGenerate == UM_GR_SAVE_FILE) {
             saveFile(rs);
-        }
-
-        if (showData && !saveFile) {
+        } else if (reportToGenerate == UM_GR_SHOW_DATA) {
             showData(rs);
-        }
-
-        if (showData || saveFile) {
+        } else if (reportToGenerate == UM_GR_SAVE_FILE_AND_SHOW_DATA) {
             saveFileAndSHowData(rs);
+        } else {
+            System.out.print("there is no such option");
         }
     }
 
