@@ -33,7 +33,9 @@ final class GenerateReportsOptions {
      * @param saveFile select the truth if you want to save the data to a file
      * @param showData select the truth if you want to show data on the screen
      */
-    static void generateReport(final ResultSet rs, final Boolean saveFile, final Boolean showData) {
+    static void generateReport(final ResultSet rs,
+                               final Boolean saveFile,
+                               final Boolean showData) {
         //todo boolean depend from user choice!
 
 
@@ -76,7 +78,8 @@ final class GenerateReportsOptions {
     /**
      * Generate query for whole columns.
      *
-     * @param customerIdentifierFilter if need custom ID filter - info from {@link UserMenu#menuGetCustomerIdentifier()}
+     * @param customerIdentifierFilter if need custom ID filter
+     *                                 -info from {@link UserMenu#menuGetCustomerIdentifier()}
      * @return query as a String
      */
     static String generateQuery(final Boolean customerIdentifierFilter) {

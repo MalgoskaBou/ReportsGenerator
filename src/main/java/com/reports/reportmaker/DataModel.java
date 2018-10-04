@@ -11,74 +11,79 @@ class DataModel {
     /**
      * Client ID.
      */
-    private String clientID;
+    private String mClientID;
     /**
      * Request ID.
      */
-    private long requestID;
+    private long mRequestID;
     /**
      * Name of client.
      */
-    private String name;
+    private String mName;
     /**
      * Quantity of product.
      */
-    private int quantity;
+    private int mQuantity;
     /**
      * Price of product.
      */
-    private BigDecimal price;
+    private BigDecimal mPrice;
 
     /**
      * Constructor.
      *
      * @param clientID  client ID (String - no spaces and no more than 6 chars)
      * @param requestID request ID (long)
-     * @param name      name of client (String - no longer than 255 chars)
-     * @param quantity  quantity of product (int)
-     * @param price     price of product (BigDecimal) - cash values
+     * @param name      mName of client (String - no longer than 255 chars)
+     * @param quantity  mQuantity of product (int)
+     * @param price     mPrice of product (BigDecimal) - cash values
      */
-    DataModel(final String clientID, final long requestID, final String name, final int quantity, final BigDecimal price) {
-        this.clientID = clientID;
-        this.requestID = requestID;
-        this.name = name;
-        this.quantity = quantity;
-        this.price = price;
+    DataModel(final String clientID,
+              final long requestID,
+              final String name,
+              final int quantity,
+              final BigDecimal price) {
+
+        mClientID = clientID;
+        mRequestID = requestID;
+        mName = name;
+        mQuantity = quantity;
+        mPrice = price;
     }
 
     /**
      * @return clinet ID
      */
-    String getClientID() {
-        return clientID;
+    String getmClientID() {
+        return mClientID;
     }
 
     /**
      * @return request ID
      */
-    long getRequestID() {
-        return requestID;
+    long getmRequestID() {
+        return mRequestID;
     }
 
     /**
-     * @return name od client
+     * @return mName od client
      */
-    String getName() {
-        return name;
+    String getmName() {
+        return mName;
     }
 
     /**
-     * @return quantity of product
+     * @return mQuantity of product
      */
-    int getQuantity() {
-        return quantity;
+    int getmQuantity() {
+        return mQuantity;
     }
 
     /**
-     * @return price of product
+     * @return mPrice of product
      */
-    BigDecimal getPrice() {
-        return price;
+    BigDecimal getmPrice() {
+        return mPrice;
     }
 
 }

@@ -16,39 +16,39 @@ class DataLineObj {
     /**
      * ID of client.
      */
-    private String clientID;
+    private String mClientID;
     /**
      * Request ID.
      */
-    private String requestID;
+    private String mRequestID;
     /**
      * Name of client.
      */
-    private String name;
+    private String mName;
     /**
      * Quentity od product.
      */
-    private String quantity;
+    private String mQuantity;
     /**
      * Price of product.
      */
-    private String price;
+    private String mPrice;
     /**
      * identification of a possible error.
      */
-    private String errorIdent;
+    private String mErrorIdent;
 
     /**
      * Constructor.
      *
      * @param clientID   ID of client
      * @param requestID  request ID
-     * @param name       name of client
-     * @param quantity   quantity of product
-     * @param price      price of product
+     * @param name       mName of client
+     * @param quantity   mQuantity of product
+     * @param price      mPrice of product
      * @param errorIdent identifier of a possible error
      *                   - contains information about the line
-     *                   being read and the file name
+     *                   being read and the file mName
      */
     DataLineObj(final String clientID,
                 final String requestID,
@@ -57,12 +57,12 @@ class DataLineObj {
                 final String price,
                 final String errorIdent) {
 
-        this.clientID = clientID;
-        this.requestID = requestID;
-        this.name = name;
-        this.quantity = quantity;
-        this.price = price;
-        this.errorIdent = errorIdent;
+        mClientID = clientID;
+        mRequestID = requestID;
+        mName = name;
+        mQuantity = quantity;
+        mPrice = price;
+        mErrorIdent = errorIdent;
     }
 
 
@@ -76,32 +76,32 @@ class DataLineObj {
 
         try {
             //parse strings to correct formats
-            //and delete white-spaces from clientID
-            String validateClientID = clientID.replaceAll("\\s", "");
-            long validateRequestID = Long.parseLong(requestID);
-            int validateQuantity = Integer.parseInt(quantity);
+            //and delete white-spaces from mClientID
+            String validateClientID = mClientID.replaceAll("\\s", "");
+            long validateRequestID = Long.parseLong(mRequestID);
+            int validateQuantity = Integer.parseInt(mQuantity);
 
             //save to database as a DECIMAL(7,2)
-            BigDecimal validatePrice = new BigDecimal(price);
+            BigDecimal validatePrice = new BigDecimal(mPrice);
 
             //checking if these values are within the varchar range
             if (validateClientID.length() > ConstDataClass.MAX_CHAR_IN_USER_ID) {
-                throw new Exception("too long clientID");
+                throw new Exception("too long mClientID");
             }
-            if (name.length() > ConstDataClass.MAX_CHAR_IN_USER_NAME) {
-                throw new Exception("too long name of product");
+            if (mName.length() > ConstDataClass.MAX_CHAR_IN_USER_NAME) {
+                throw new Exception("too long mName of product");
             }
 
             return new DataModel(validateClientID,
                     validateRequestID,
-                    name,
+                    mName,
                     validateQuantity,
                     validatePrice);
 
         } catch (Exception e) {
             //throw parse exception for wrong format data,
             //and too long value in varChar
-            System.out.println(requestID + " probably wrong data format in: " + errorIdent);
+            System.out.println(mRequestID + " probably wrong data format in: " + mErrorIdent);
             e.printStackTrace();
         }
 

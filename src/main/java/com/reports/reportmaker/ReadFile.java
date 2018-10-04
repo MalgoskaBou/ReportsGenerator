@@ -91,7 +91,8 @@ final class ReadFile {
     }
 
     /**
-     * Processes and validates data from a file to an object that is ready to write to the database.
+     * Processes and validates data from a file to an
+     * object that is ready to write to the database.
      *(For XML files)
      * @param file file patch
      * @return list of {@link DataModel} objects which represent individual rows of the database

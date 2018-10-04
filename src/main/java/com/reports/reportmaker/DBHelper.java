@@ -89,11 +89,11 @@ final class DBHelper {
 
                 String sqlInsert = "INSERT INTO RAPPORTS "
                         + "VALUES (default, '"
-                        + datamodel.getClientID() + "', "
-                        + datamodel.getRequestID() + ", '"
-                        + datamodel.getName() + "', "
-                        + datamodel.getQuantity() + ", "
-                        + datamodel.getPrice() + ")";
+                        + datamodel.getmClientID() + "', "
+                        + datamodel.getmRequestID() + ", '"
+                        + datamodel.getmName() + "', "
+                        + datamodel.getmQuantity() + ", "
+                        + datamodel.getmPrice() + ")";
                 try {
                     stmt.executeUpdate(sqlInsert);
                 } catch (SQLException e) {
