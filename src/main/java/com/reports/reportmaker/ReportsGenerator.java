@@ -5,7 +5,6 @@ import org.apache.commons.io.FilenameUtils;
 import static com.reports.reportmaker.DBHelper.*;
 import static com.reports.reportmaker.GenerateReportsOptions.*;
 import static com.reports.reportmaker.ReadFile.*;
-import static com.reports.reportmaker.SaveToCsvFile.saveFileFromResultSet;
 
 /**
  * Main
@@ -46,38 +45,37 @@ public class ReportsGenerator {
             switch (userChoice) {
                 case 1:
                     query = generateQuery(false, "COUNT", "id");
-                    showData(getData(query));
-                    saveFileFromResultSet(getData(query));
+                    generateReport(getData(query), true, true);
                     //generateReportCount(false, "COUNT", "id");
                     break;
                 case 2:
                     query = generateQuery(true, "COUNT", "id");
-                    showData(getData(query));
+                    generateReport(getData(query), true, true);
                     break;
                 case 3:
                     query = generateQuery(false, "SUM", "price");
-                    showData(getData(query));
+                    generateReport(getData(query), true, true);
                     break;
                 case 4:
                     query = generateQuery(true, "SUM", "price");
-                    showData(getData(query));
+                    generateReport(getData(query), true, true);
                     break;
                 case 5:
                     query = generateQuery(false);
-                    showData(getData(query));
-                    saveFileFromResultSet(getData(query));
+                    generateReport(getData(query), true, true);
+
                     break;
                 case 6:
                     query = generateQuery(true);
-                    showData(getData(query));
+                    generateReport(getData(query), true, true);
                     break;
                 case 7:
                     query = generateQuery(false, "AVG", "price");
-                    showData(getData(query));
+                    generateReport(getData(query), true, true);
                     break;
                 case 8:
                     query = generateQuery(true, "SUM", "price");
-                    showData(getData(query));
+                    generateReport(getData(query), true, true);
                     break;
                 default:
                     System.out.println("There is no such option on the menu");
