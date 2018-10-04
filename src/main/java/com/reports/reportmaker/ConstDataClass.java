@@ -126,5 +126,30 @@ final class ConstDataClass {
      */
     static final int UM_EXIT = 9;
 
+    /**
+     * CSV file column - customer id.
+     */
+    static final int CSV_CUSTOMER_ID = 0;
+
+    /**
+     * CSV file column - request id.
+     */
+    static final int CSV_REQUEST_ID = 1;
+
+    /**
+     * CSV file column - name.
+     */
+    static final int CSV_NAME = 2;
+
+    /**
+     * CSV file column - quantity.
+     */
+    static final int CSV_QUANTITY = 3;
+
+    /**
+     * CSV file column - price.
+     */
+    static final int CSV_PRICE = 4;
+
 
 }

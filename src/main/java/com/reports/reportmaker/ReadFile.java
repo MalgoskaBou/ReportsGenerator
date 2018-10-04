@@ -16,14 +16,18 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import static com.reports.reportmaker.ConstDataClass.CLIENT_ID;
+import static com.reports.reportmaker.ConstDataClass.CSV_CUSTOMER_ID;
+import static com.reports.reportmaker.ConstDataClass.CSV_NAME;
+import static com.reports.reportmaker.ConstDataClass.CSV_REQUEST_ID;
+import static com.reports.reportmaker.ConstDataClass.CSV_QUANTITY;
+import static com.reports.reportmaker.ConstDataClass.CSV_PRICE;
+
 import static com.reports.reportmaker.ConstDataClass.ELEMENT;
+import static com.reports.reportmaker.ConstDataClass.CLIENT_ID;
 import static com.reports.reportmaker.ConstDataClass.REQUEST_ID;
-import static com.reports.reportmaker.ConstDataClass.QUANTITY;
 import static com.reports.reportmaker.ConstDataClass.NAME;
+import static com.reports.reportmaker.ConstDataClass.QUANTITY;
 import static com.reports.reportmaker.ConstDataClass.PRICE;
-
-
 
 /**
  * the class responsible for reading information from files.
@@ -69,11 +73,11 @@ final class ReadFile {
 
                 try {
                     // Accessing Values by Column Index
-                    dataLine = new DataLineObj(csvRecord.get(0),
-                            csvRecord.get(1),
-                            csvRecord.get(2),
-                            csvRecord.get(3),
-                            csvRecord.get(4),
+                    dataLine = new DataLineObj(csvRecord.get(CSV_CUSTOMER_ID),
+                            csvRecord.get(CSV_REQUEST_ID),
+                            csvRecord.get(CSV_NAME),
+                            csvRecord.get(CSV_QUANTITY),
+                            csvRecord.get(CSV_PRICE),
                             errorIdent);
 
                     DataModel validatedDataLine = dataLine.validateData();
