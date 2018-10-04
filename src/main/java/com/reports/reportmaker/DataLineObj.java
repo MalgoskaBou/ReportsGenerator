@@ -1,5 +1,6 @@
 package com.reports.reportmaker;
 
+
 import java.math.BigDecimal;
 
 /**
@@ -51,8 +52,7 @@ class DataLineObj {
             int validateQuantity = Integer.parseInt(quantity);
 
             //save to database as a DECIMAL(7,2)
-            double validatePrice = Double.parseDouble(price);
-            //BigDecimal valPrice = BigDecimal.valueOf(price);
+            BigDecimal validatePrice = new BigDecimal(price);
 
             //checking if these values are within the varchar range
             if (validateClientID.length() > 6) {

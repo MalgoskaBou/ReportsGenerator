@@ -23,8 +23,8 @@ import static com.reports.reportmaker.ConstDataClass.*;
  */
 class ReadFile {
 
-    private DataLineObj dataLine;
-    private ArrayList<DataModel> listOfDataFromFile = new ArrayList<>();
+    private static DataLineObj dataLine;
+    private static ArrayList<DataModel> listOfDataFromFile = new ArrayList<>();
 
     /**
      * Processes and validates data from a file to an object that is ready to write to the database
@@ -33,7 +33,7 @@ class ReadFile {
      * @param file file patch
      * @return list of {@link DataModel} objects which represent individual rows of the database
      */
-    ArrayList<DataModel> readDataFromCSV(String file) {
+    static ArrayList<DataModel> readDataFromCSV(String file) {
 
         listOfDataFromFile.clear();
         try {
@@ -80,7 +80,7 @@ class ReadFile {
      * @param file file patch
      * @return list of {@link DataModel} objects which represent individual rows of the database
      */
-    ArrayList<DataModel> readDataFromXML(String file) {
+    static ArrayList<DataModel> readDataFromXML(String file) {
 
         File inputFile = new File(file);
         listOfDataFromFile.clear();

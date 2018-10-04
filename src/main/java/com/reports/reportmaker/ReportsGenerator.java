@@ -4,6 +4,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import static com.reports.reportmaker.DBHelper.*;
 import static com.reports.reportmaker.GenerateReportsOptions.*;
+import static com.reports.reportmaker.ReadFile.*;
 import static com.reports.reportmaker.SaveToCsvFile.saveFileFromResultSet;
 
 /**
@@ -17,7 +18,6 @@ public class ReportsGenerator {
 
         openDBConnection();
         createTable();
-        ReadFile dataReader = new ReadFile();
 
         System.out.println("There are " + args.length + " files to load\n");
 
@@ -27,11 +27,11 @@ public class ReportsGenerator {
                 System.out.print("Loading file: " + arg + "\n");
                 switch (FilenameUtils.getExtension(arg)) {
                     case "xml":
-                        insertData(dataReader.readDataFromXML(arg));
+                        insertData(readDataFromXML(arg));
                         //saveData
                         break;
                     case "csv":
-                        insertData(dataReader.readDataFromCSV(arg));
+                        insertData(readDataFromCSV(arg));
                         break;
                     default:
                         System.out.println("Wrong file format - expected .csv or .xml");

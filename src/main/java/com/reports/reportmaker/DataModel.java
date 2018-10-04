@@ -1,5 +1,7 @@
 package com.reports.reportmaker;
 
+import java.math.BigDecimal;
+
 /**
  * Represents one row in the database
  * - returned by {@link DataLineObj#validateData()}
@@ -10,7 +12,7 @@ class DataModel {
     private long requestID;
     private String name;
     private int quantity;
-    private double price;
+    private BigDecimal price;
 
     /**
      * Constructor
@@ -21,7 +23,7 @@ class DataModel {
      * @param quantity  quantity of product (int)
      * @param price     price of product (double)
      */
-    DataModel(String clientID, long requestID, String name, int quantity, double price) {
+    DataModel(String clientID, long requestID, String name, int quantity, BigDecimal price) {
         this.clientID = clientID;
         this.requestID = requestID;
         this.name = name;
@@ -60,7 +62,7 @@ class DataModel {
     /**
      * @return price of product
      */
-    double getPrice() {
+    BigDecimal getPrice() {
         return price;
     }
 
