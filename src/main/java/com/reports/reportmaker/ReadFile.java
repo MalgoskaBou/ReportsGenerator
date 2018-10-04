@@ -16,7 +16,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import static com.reports.reportmaker.ConstDataClass.*;
+import static com.reports.reportmaker.ConstDataClass.CLIENT_ID;
+import static com.reports.reportmaker.ConstDataClass.ELEMENT;
+import static com.reports.reportmaker.ConstDataClass.REQUEST_ID;
+import static com.reports.reportmaker.ConstDataClass.QUANTITY;
+import static com.reports.reportmaker.ConstDataClass.NAME;
+import static com.reports.reportmaker.ConstDataClass.PRICE;
+
 
 
 /**
