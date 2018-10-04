@@ -2,9 +2,26 @@ package com.reports.reportmaker;
 
 import org.apache.commons.io.FilenameUtils;
 
-import static com.reports.reportmaker.DBHelper.*;
-import static com.reports.reportmaker.GenerateReportsOptions.*;
-import static com.reports.reportmaker.ReadFile.*;
+import static com.reports.reportmaker.ConstDataClass.UM_AVG_ORDERS;
+import static com.reports.reportmaker.ConstDataClass.UM_LIST_OF_ALL_ORDERS;
+import static com.reports.reportmaker.ConstDataClass.UM_LIST_OF_ALL_ORDERS_CID;
+import static com.reports.reportmaker.ConstDataClass.UM_AVG_ORDERS_CID;
+import static com.reports.reportmaker.ConstDataClass.UM_EXIT;
+import static com.reports.reportmaker.ConstDataClass.UM_TOTAL_AMOUNT_OF_ORDERS;
+import static com.reports.reportmaker.ConstDataClass.UM_TOTAL_AMOUNT_OF_ORDERS_CID;
+import static com.reports.reportmaker.ConstDataClass.UM_TOTAL_NUMBER_OF_ORDERS;
+import static com.reports.reportmaker.ConstDataClass.UM_TOTAL_NUMBER_OF_ORDERS_CID;
+
+import static com.reports.reportmaker.DBHelper.createTable;
+import static com.reports.reportmaker.DBHelper.getData;
+import static com.reports.reportmaker.DBHelper.insertData;
+import static com.reports.reportmaker.DBHelper.closeDB;
+import static com.reports.reportmaker.DBHelper.openDBConnection;
+import static com.reports.reportmaker.GenerateReportsOptions.generateQuery;
+import static com.reports.reportmaker.GenerateReportsOptions.generateReport;
+import static com.reports.reportmaker.ReadFile.readDataFromCSV;
+import static com.reports.reportmaker.ReadFile.readDataFromXML;
+
 
 /**
  * Main.
@@ -26,7 +43,7 @@ final class ReportsGenerator {
      *
      * @param args arguments for class
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         //SpringApplication.run(ReportsGenerator.class, args);
 
         openDBConnection();
@@ -58,40 +75,40 @@ final class ReportsGenerator {
             String query;
             //take the user's choice
             switch (userChoice) {
-                case 1:
+                case UM_TOTAL_NUMBER_OF_ORDERS:
                     query = generateQuery(false, "COUNT", "id");
                     generateReport(getData(query), true, true);
                     break;
-                case 2:
+                case UM_TOTAL_NUMBER_OF_ORDERS_CID:
                     query = generateQuery(true, "COUNT", "id");
                     generateReport(getData(query), true, true);
                     break;
-                case 3:
+                case UM_TOTAL_AMOUNT_OF_ORDERS:
                     query = generateQuery(false, "SUM", "price");
                     generateReport(getData(query), true, true);
                     break;
-                case 4:
+                case UM_TOTAL_AMOUNT_OF_ORDERS_CID:
                     query = generateQuery(true, "SUM", "price");
                     generateReport(getData(query), true, true);
                     break;
-                case 5:
+                case UM_LIST_OF_ALL_ORDERS:
                     query = generateQuery(false);
                     generateReport(getData(query), true, true);
 
                     break;
-                case 6:
+                case UM_LIST_OF_ALL_ORDERS_CID:
                     query = generateQuery(true);
                     generateReport(getData(query), true, true);
                     break;
-                case 7:
+                case UM_AVG_ORDERS:
                     query = generateQuery(false, "AVG", "price");
                     generateReport(getData(query), true, true);
                     break;
-                case 8:
+                case UM_AVG_ORDERS_CID:
                     query = generateQuery(true, "AVG", "price");
                     generateReport(getData(query), true, true);
                     break;
-                case 9:
+                case UM_EXIT:
                     //do nothing - just waiting for close the database
                     break;
                 default: //do nothing

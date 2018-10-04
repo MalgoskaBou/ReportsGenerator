@@ -2,8 +2,6 @@ package com.reports.reportmaker;
 
 /**
  * Storing constant data.
- * Database - database information
- * xml nodes -  xml tree information
  */
 final class ConstDataClass {
 
@@ -79,9 +77,54 @@ final class ConstDataClass {
     static final int MAX_CHAR_IN_USER_NAME = 255;
 
     /**
-     * Max choices in report generate menu.
+     * Max chars in client ID.
      */
     static final int MAX_CHAR_IN_USER_ID = 6;
+
+    /**
+     * User menu - Total number of orders.
+     */
+    static final int UM_TOTAL_NUMBER_OF_ORDERS = 1;
+
+    /**
+     * User menu - Total number of orders from given Customer ID.
+     */
+    static final int UM_TOTAL_NUMBER_OF_ORDERS_CID = 2;
+
+    /**
+     * User menu - Total amount of orders.
+     */
+    static final int UM_TOTAL_AMOUNT_OF_ORDERS = 3;
+
+    /**
+     * User menu - Total amount of orders from given Customer ID.
+     */
+    static final int UM_TOTAL_AMOUNT_OF_ORDERS_CID = 4;
+
+    /**
+     * User menu - List of all orders.
+     */
+    static final int UM_LIST_OF_ALL_ORDERS = 5;
+
+    /**
+     * User menu - List of all orders from given Customer ID.
+     */
+    static final int UM_LIST_OF_ALL_ORDERS_CID = 6;
+
+    /**
+     * User menu - Average value of all orders.
+     */
+    static final int UM_AVG_ORDERS = 7;
+
+    /**
+     * User menu - Average value of all orders from given Customer ID.
+     */
+    static final int UM_AVG_ORDERS_CID = 8;
+
+    /**
+     * User menu - exit.
+     */
+    static final int UM_EXIT = 9;
 
 
 }
