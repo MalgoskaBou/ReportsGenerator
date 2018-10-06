@@ -36,30 +36,40 @@ final class ConstDataClass {
 
 
     /**
-     * xml nodes - client id.
+     * xml nodes = DB column - client id.
      */
     static final String CLIENT_ID = "clientId";
     /**
-     * xml nodes - request id.
+     * xml nodes = DB column - request id.
      */
     static final String REQUEST_ID = "requestId";
     /**
-     * xml nodes - name of client.
+     * xml nodes = DB column - name of client.
      */
     static final String NAME = "name";
     /**
-     * xml nodes - quantity of product.
+     * xml nodes = DB column - quantity of product.
      */
     static final String QUANTITY = "quantity";
     /**
-     * xml nodes - price of product.
+     * xml nodes = DB column - price of product.
      */
     static final String PRICE = "price";
 
     /**
-     * xml nodes - root element of xml document.
+     * xml nodes = DB column - root element of xml document.
      */
     static final String ELEMENT = "request";
+
+    /**
+     * DB column id - primary key - root element of xml document.
+     */
+    static final String ID = "id";
+
+    /**
+     * DB table name - root element of xml document.
+     */
+    static final String TABLE_NAME = "RAPPORTS";
 
     /**
      * Max choices in mainMenu.

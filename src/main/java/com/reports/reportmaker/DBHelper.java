@@ -7,6 +7,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static com.reports.reportmaker.ConstDataClass.CLIENT_ID;
+import static com.reports.reportmaker.ConstDataClass.REQUEST_ID;
+import static com.reports.reportmaker.ConstDataClass.NAME;
+import static com.reports.reportmaker.ConstDataClass.QUANTITY;
+import static com.reports.reportmaker.ConstDataClass.PRICE;
+import static com.reports.reportmaker.ConstDataClass.TABLE_NAME;
+import static com.reports.reportmaker.ConstDataClass.ID;
+
+
 /**
  * functions for manipulating the database.
  */
@@ -63,14 +72,14 @@ final class DBHelper {
         try {
 
             // Create table with the necessary columns
-            String sqlCreate = "CREATE TABLE   RAPPORTS "
-                    + "(id INTEGER not NULL AUTO_INCREMENT, "
-                    + " clientId VARCHAR(6) not NULL, "
-                    + " requestId LONG not NULL, "
-                    + " name VARCHAR(255) not NULL, "
-                    + " quantity INTEGER not NULL, "
-                    + " price DECIMAL(7 , 2 ) not NULL, "
-                    + " PRIMARY KEY ( id ))";
+            String sqlCreate = "CREATE TABLE " + TABLE_NAME
+                    + "( " + ID + " INTEGER not NULL AUTO_INCREMENT, "
+                    + CLIENT_ID + " VARCHAR(6) not NULL, "
+                    + REQUEST_ID + " LONG not NULL, "
+                    + NAME + " VARCHAR(255) not NULL, "
+                    + QUANTITY + "  INTEGER not NULL, "
+                    + PRICE + " DECIMAL(7 , 2 ) not NULL, "
+                    + " PRIMARY KEY ( " + ID + " ))";
             stmt.executeUpdate(sqlCreate);
 
             System.out.println("Created table in given database...");

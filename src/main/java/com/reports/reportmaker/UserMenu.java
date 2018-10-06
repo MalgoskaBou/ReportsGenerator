@@ -12,8 +12,6 @@ import static com.reports.reportmaker.ConstDataClass.MAX_CHOICES_IN_REPORT_GENER
  */
 final class UserMenu {
 
-    //todo -> InputMismatchException
-
     /**
      * Private constructor.
      */
@@ -53,6 +51,9 @@ final class UserMenu {
         return choice;
     }
 
+    //todo only characters input - now I can put . , )...
+    //todo - if(returned choice is not in database) Goodbye!
+
     /**
      * additional information about customer ID.
      *
@@ -60,11 +61,12 @@ final class UserMenu {
      */
     static String menuGetCustomerIdentifier() {
 
-        System.out.println("Choose client identifier: ");
+        System.out.println("Choose client ID: ");
 
         String choice = getStringChoice();
-        while (choice.length() > MAX_CHAR_IN_USER_ID || choice.contains(" ")) {
-            System.out.print("Customer ID can have only 6 chars without spaces");
+        while (choice.length() > MAX_CHAR_IN_USER_ID
+                || choice.contains(" ")) {
+            System.out.print("Client ID can have only 6 chars without spaces and special characters: ");
             choice = getStringChoice();
         }
         return choice;
@@ -104,7 +106,8 @@ final class UserMenu {
     /**
      * Get user choice in int.
      *
-     * @return user choice in int
+     * @return user choice in int or 0 if catch InputMismatchException
+     * @throws InputMismatchException secured
      */
     private static int getIntChoice() {
         int selection = 0;
